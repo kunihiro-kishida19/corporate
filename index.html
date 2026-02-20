@@ -377,9 +377,78 @@ footer{background:var(--bg2);border-top:1px solid var(--b1);padding:48px 64px;po
   .float-cta{display:none}
   .who-section{padding:60px 24px}
 }
+
+/* ── TOAST POPUP ── */
+#toast-popup{
+  position:fixed;
+  top:32px;
+  left:50%;
+  transform:translateX(-50%) translateY(-20px);
+  z-index:9999;
+  background:rgba(10,22,38,0.97);
+  border:1px solid rgba(52,211,153,0.55);
+  border-radius:8px;
+  padding:18px 32px 18px 22px;
+  display:flex;
+  align-items:center;
+  gap:14px;
+  box-shadow:0 8px 48px rgba(0,0,0,0.55),0 0 32px rgba(52,211,153,0.12);
+  backdrop-filter:blur(24px);
+  min-width:320px;
+  max-width:90vw;
+  opacity:0;
+  pointer-events:none;
+  transition:opacity 0.35s ease, transform 0.35s cubic-bezier(0.34,1.56,0.64,1);
+}
+#toast-popup.show{
+  opacity:1;
+  transform:translateX(-50%) translateY(0);
+  pointer-events:auto;
+}
+#toast-popup.hide{
+  opacity:0;
+  transform:translateX(-50%) translateY(-16px);
+}
+.toast-icon{
+  width:40px;height:40px;border-radius:50%;
+  background:rgba(52,211,153,0.12);
+  border:1px solid rgba(52,211,153,0.4);
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;
+}
+.toast-icon svg{width:20px;height:20px;color:#34d399}
+.toast-body{}
+.toast-title{font-size:15px;font-weight:700;color:#f1f5f9;margin-bottom:3px}
+.toast-sub{font-size:13px;color:#c2d4e8;line-height:1.5}
+.toast-bar{
+  position:absolute;bottom:0;left:0;height:3px;
+  background:linear-gradient(90deg,#34d399,#38bdf8);
+  border-radius:0 0 8px 8px;
+  width:100%;
+  transform-origin:left;
+  animation:none;
+}
+#toast-popup.show .toast-bar{
+  animation:toast-drain 2s linear forwards;
+}
+@keyframes toast-drain{from{transform:scaleX(1)}to{transform:scaleX(0)}}
 </style>
 </head>
 <body>
+
+<!-- TOAST POPUP -->
+<div id="toast-popup" role="alert" aria-live="polite">
+  <div class="toast-icon">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M20 6 9 17l-5-5"/>
+    </svg>
+  </div>
+  <div class="toast-body">
+    <div class="toast-title">送信が完了しました</div>
+    <div class="toast-sub">内容を受け付けました。担当者よりご連絡いたします。</div>
+  </div>
+  <div class="toast-bar"></div>
+</div>
 
 <canvas id="particles"></canvas>
 
@@ -957,7 +1026,7 @@ footer{background:var(--bg2);border-top:1px solid var(--b1);padding:48px 64px;po
       <div class="reveal d4" style="display:flex;flex-direction:column;gap:28px;margin-top:56px">
         <div>
           <div class="ci-label">Email</div>
-          <div class="ci-val"><a href="mailto:info@balcony.co.jp" style="color:var(--text);text-decoration:none">info@balcony.co.jp</a></div>
+          <div class="ci-val"><a href="/cdn-cgi/l/email-protection#b9d0d7dfd6f9dbd8d5dad6d7c097dad697d3c9" style="color:var(--text);text-decoration:none"><span class="__cf_email__" data-cfemail="e0898e868fa082818c838f8e99ce838fce8a90">[email&#160;protected]</span></a></div>
         </div>
         <div>
           <div class="ci-label">Website</div>
@@ -967,28 +1036,31 @@ footer{background:var(--bg2);border-top:1px solid var(--b1);padding:48px 64px;po
     </div>
 
     <div class="reveal from-right">
-      <form class="contact-form" onsubmit="handleSubmit(event)">
+      <form class="contact-form" id="contact-form" onsubmit="handleSubmit(event)">
+        <!-- Formspree: https://formspree.io でsales@balcony.co.jpを登録後、下のYOUR_FORM_IDを差し替えてください -->
+        <input type="hidden" name="_subject" value="【Balcony】お問い合わせが届きました">
+        <input type="hidden" name="_language" value="ja">
         <div class="form-group">
           <label class="form-label">会社名 *</label>
-          <input type="text" class="form-input" placeholder="株式会社〇〇" required>
+          <input type="text" name="company" class="form-input" placeholder="株式会社〇〇" required>
         </div>
         <div class="form-group">
           <label class="form-label">お名前 *</label>
-          <input type="text" class="form-input" placeholder="山田 太郎" required>
+          <input type="text" name="name" class="form-input" placeholder="山田 太郎" required>
         </div>
         <div class="form-group">
           <label class="form-label">メールアドレス *</label>
-          <input type="email" class="form-input" placeholder="taro@example.com" required>
+          <input type="email" name="email" class="form-input" placeholder="taro@example.com" required>
         </div>
         <div class="form-group">
           <label class="form-label">電話番号</label>
-          <input type="tel" class="form-input" placeholder="03-xxxx-xxxx">
+          <input type="tel" name="phone" class="form-input" placeholder="03-xxxx-xxxx">
         </div>
         <div class="form-group">
           <label class="form-label">診断対象・ご要望</label>
-          <textarea class="form-textarea" placeholder="例：Webアプリ・API・クラウド（AWS）の脆弱性診断を検討しています。生成AI機能も組み込まれており、プロンプトインジェクションの診断も希望しています。"></textarea>
+          <textarea name="message" class="form-textarea" placeholder="例：Webアプリ・API・クラウド（AWS）の脆弱性診断を検討しています。生成AI機能も組み込まれており、プロンプトインジェクションの診断も希望しています。"></textarea>
         </div>
-        <button type="submit" class="btn-primary" style="width:100%;text-align:center;padding:22px;font-size:17px">送信する →</button>
+        <button type="submit" class="btn-primary" id="submit-btn" style="width:100%;text-align:center;padding:22px;font-size:17px">送信する →</button>
       </form>
     </div>
   </div>
@@ -1007,7 +1079,7 @@ footer{background:var(--bg2);border-top:1px solid var(--b1);padding:48px 64px;po
   </div>
 </footer>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 // ── PARTICLES ──
 (function() {
   var canvas = document.getElementById('particles');
@@ -1153,16 +1225,67 @@ function toggleFaq(el) {
   if (!isOpen) item.classList.add('open');
 }
 
-// ── FORM SUBMIT ──
+// ── FORM SUBMIT (Formspree) ──
+// 【設定手順】
+//   1. https://formspree.io にアクセスし、sales@balcony.co.jp でアカウント登録
+//   2. 「New Form」を作成し、送信先に sales@balcony.co.jp を設定
+//   3. 発行された Form ID（例: xabc1234）を下の FORMSPREE_ID に貼り付け
+var FORMSPREE_ID = 'xwvnnqjj'; // ← ここを差し替えてください
+
+function showToast() {
+  var popup = document.getElementById('toast-popup');
+  popup.classList.remove('hide');
+  popup.classList.add('show');
+  // toast-bar のアニメーションをリセットして再実行
+  var bar = popup.querySelector('.toast-bar');
+  bar.style.animation = 'none';
+  void bar.offsetWidth; // reflow
+  bar.style.animation = '';
+  setTimeout(function() {
+    popup.classList.add('hide');
+    setTimeout(function() { popup.classList.remove('show', 'hide'); }, 350);
+  }, 2000);
+}
+
 function handleSubmit(e) {
   e.preventDefault();
-  var btn = e.target.querySelector('button[type="submit"]');
-  var formData = {
-    company: e.target.querySelector('input[type="text"]').value,
-  };
-  btn.textContent = '送信しました ✓';
-  btn.style.background = 'var(--c4)';
+  var form = e.target;
+  var btn = document.getElementById('submit-btn');
+
+  // ボタンを送信中状態に
+  btn.textContent = '送信中…';
   btn.disabled = true;
+  btn.style.opacity = '0.7';
+
+  var data = new FormData(form);
+
+  fetch('https://formspree.io/f/' + FORMSPREE_ID, {
+    method: 'POST',
+    body: data,
+    headers: { 'Accept': 'application/json' }
+  })
+  .then(function(res) {
+    if (res.ok) {
+      // 送信成功
+      form.reset();
+      btn.textContent = '送信しました ✓';
+      btn.style.background = 'var(--c4)';
+      btn.style.opacity = '1';
+      showToast();
+    } else {
+      // サーバーエラー
+      return res.json().then(function(json) {
+        throw new Error(json.errors ? json.errors.map(function(e){return e.message;}).join(', ') : '送信エラー');
+      });
+    }
+  })
+  .catch(function(err) {
+    btn.textContent = '送信する →';
+    btn.disabled = false;
+    btn.style.opacity = '1';
+    alert('送信に失敗しました。時間をおいて再度お試しいただくか、メールにてお問い合わせください。\n\nsales@balcony.co.jp');
+    console.error(err);
+  });
 }
 
 // ── GLITCH EFFECT ──
