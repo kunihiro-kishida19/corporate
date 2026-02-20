@@ -44,7 +44,7 @@ body::before{content:'';position:fixed;inset:0;background:
 .header-back svg{width:16px;height:16px}
 
 /* LAYOUT */
-.report-layout{display:grid;grid-template-columns:260px 1fr;min-height:calc(100vh - 61px);position:relative;z-index:1}
+.report-layout{display:grid;grid-template-columns:260px 1fr;min-height:calc(100vh - 61px);position:relative;z-index:1;overflow-x:hidden}
 
 /* SIDEBAR */
 .sidebar{background:var(--bg4);border-right:1px solid var(--b1);padding:32px 0;position:sticky;top:61px;height:calc(100vh - 61px);overflow-y:auto}
@@ -63,11 +63,10 @@ body::before{content:'';position:fixed;inset:0;background:
 .sev-dot.med{background:var(--med)}
 
 /* MAIN CONTENT */
-.report-main{padding:48px 56px;max-width:900px}
+.report-main{padding:48px 56px;max-width:900px;width:100%;overflow-x:hidden}
 
-/* SAMPLE BANNER */
-.sample-banner{background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.35);border-radius:4px;padding:14px 22px;margin-bottom:40px;display:flex;align-items:center;gap:14px;font-size:14px;color:#fbbf24}
-.sample-banner svg{flex-shrink:0;width:18px;height:18px}
+.sample-banner{background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.35);border-radius:4px;padding:14px 22px;margin-bottom:40px;display:flex;align-items:flex-start;gap:14px;font-size:14px;color:#fbbf24;line-height:1.7}
+.sample-banner svg{flex-shrink:0;width:18px;height:18px;margin-top:3px}
 
 /* REPORT HEADER BLOCK */
 .report-title-block{margin-bottom:52px}
@@ -127,7 +126,8 @@ body::before{content:'';position:fixed;inset:0;background:
 .warn-box{background:rgba(239,68,68,0.05);border:1px solid rgba(239,68,68,0.2);border-left:3px solid var(--crit);padding:18px 22px;margin-bottom:24px;font-size:14px;line-height:1.85;color:var(--text2)}
 
 /* PERMISSION TABLE */
-.perm-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px;background:var(--b1);border:1px solid var(--b1);margin-bottom:28px;border-radius:4px;overflow:hidden}
+.perm-grid{display:flex;gap:2px;background:var(--b1);border:1px solid var(--b1);margin-bottom:28px;border-radius:4px;overflow:hidden}
+.perm-col{flex:1;display:flex;flex-direction:column;gap:2px}
 .perm-cell{background:var(--bg2);padding:18px 22px}
 .perm-cell-head{background:var(--bg3);border-bottom:1px solid var(--b1);font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:600;letter-spacing:2px;color:var(--c1);text-transform:uppercase}
 .perm-role{font-size:14px;font-weight:700;margin-bottom:8px;display:flex;align-items:center;gap:8px}
@@ -206,16 +206,62 @@ body::before{content:'';position:fixed;inset:0;background:
 @media(max-width:900px){
   .report-layout{grid-template-columns:1fr}
   .sidebar{display:none}
-  .report-main{padding:32px 24px}
+  .report-main{padding:32px 28px;max-width:100%;width:100%}
   .meta-table{grid-template-columns:1fr 1fr}
-  .perm-grid{grid-template-columns:1fr}
-  .flow-grid{grid-template-columns:1fr}
-  .site-header{padding:16px 24px}
-  .summary-row{grid-template-columns:1fr}
+  .perm-grid{flex-direction:column;gap:12px;background:transparent;border:none;padding:0}
+  .perm-col{border:1px solid var(--b1);border-radius:4px;overflow:hidden;background:var(--b1);gap:2px}
+  .flow-grid{grid-template-columns:1fr;gap:28px}
+  .site-header{padding:14px 28px}
+  .summary-row{grid-template-columns:1fr;gap:6px}
+  .sr-label{padding-top:0}
+  .section-heading{font-size:26px;gap:12px;margin-top:48px}
+  .report-cta{padding:32px 28px}
+  .report-cta h3{font-size:34px}
+  .btn-cta,.btn-ghost{display:block;text-align:center;padding:16px 28px}
+  .btn-ghost{margin-left:0;margin-top:12px}
+  .cvss-table{font-size:12px}
+  .cvss-table th,.cvss-table td{padding:9px 12px}
+  .report-footer{padding:20px 28px;flex-direction:column;gap:10px;text-align:center}
 }
 @media(max-width:640px){
+  html,body{max-width:100vw;overflow-x:hidden}
+  .site-header{padding:12px 18px;gap:12px}
+  .header-badge{display:none}
+  .header-back span{display:none}
+  .report-main{padding:24px 18px;max-width:100%;box-sizing:border-box}
   .meta-table{grid-template-columns:1fr}
-  .cvss-row{flex-direction:column;align-items:flex-start}
+  .meta-cell{padding:16px 18px}
+  .cvss-row{flex-direction:column;align-items:flex-start;gap:10px}
+  .cvss-score{font-size:32px}
+  .cvss-vector{font-size:10px;word-break:break-all}
+  .section-heading{font-size:22px;margin-top:40px}
+  .sample-banner{font-size:13px;padding:12px 16px;gap:10px}
+  .report-main-title{font-size:clamp(28px,8vw,44px)}
+  .report-eyebrow{font-size:10px;letter-spacing:3px}
+  .report-subtitle{font-size:14px}
+  .report-subtitle code{font-size:11px;word-break:break-all}
+  .code-block{font-size:11px;max-width:100%}
+  .code-block pre{font-size:11px;padding:14px 12px;overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .code-block-header{padding:8px 12px}
+  .remedy-card{padding:16px 18px}
+  .remedy-title{font-size:14px}
+  .info-box,.warn-box{font-size:13px;padding:14px 16px}
+  .prose{font-size:14px}
+  .step-content{font-size:13px}
+  .impact-item{font-size:13px;padding:12px 14px}
+  .report-cta{padding:26px 20px;margin-top:52px}
+  .report-cta h3{font-size:28px}
+  .report-cta p{font-size:14px}
+  .btn-cta{font-size:15px;padding:14px 24px}
+  .btn-ghost{font-size:14px;padding:14px 20px}
+  .cvss-table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;margin-bottom:28px;width:100%}
+  .cvss-table{min-width:480px;margin-bottom:0}
+  .report-footer{padding:18px 18px;font-size:11px}
+  .summary-card-body{padding:18px 16px}
+  .summary-card-head{padding:14px 16px;flex-wrap:wrap;gap:8px}
+  .sc-id{font-size:11px}
+  .flow-diagram{padding:20px 18px}
+  .flow-box{font-size:12px;padding:10px 10px}
 }
 </style>
 </head>
@@ -278,7 +324,7 @@ body::before{content:'';position:fixed;inset:0;background:
     <!-- SAMPLE BANNER -->
     <div class="sample-banner">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-      これはBalconyが実際に納品する脆弱性診断レポートの<strong style="color:#fbbf24">サンプル</strong>です。実在するシステムや固有情報はすべてダミーに置き換えています。
+      <span>これはBalconyが実際に納品する脆弱性診断レポートの<strong style="color:#fbbf24">サンプル</strong>です。実在するシステムや固有情報はすべてダミーに置き換えています。</span>
     </div>
 
     <!-- TITLE -->
@@ -373,34 +419,38 @@ body::before{content:'';position:fixed;inset:0;background:
 
     <!-- Permission grid -->
     <div class="perm-grid">
-      <div class="perm-cell perm-cell-head" style="text-align:center">管理者（Admin）</div>
-      <div class="perm-cell perm-cell-head" style="text-align:center">作業者（Operator）</div>
-      <div class="perm-cell">
-        <div class="perm-item">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--c4)" stroke-width="2.5" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg>
-          会員一覧
-        </div>
-        <div class="perm-item">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--c4)" stroke-width="2.5" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg>
-          動画プロジェクト
-        </div>
-        <div class="perm-item">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--c4)" stroke-width="2.5" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg>
-          <strong style="color:var(--c4)">公開一括管理 ▶ 表示・利用可</strong>
+      <div class="perm-col">
+        <div class="perm-cell perm-cell-head" style="text-align:center">管理者（Admin）</div>
+        <div class="perm-cell">
+          <div class="perm-item">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--c4)" stroke-width="2.5" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg>
+            会員一覧
+          </div>
+          <div class="perm-item">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--c4)" stroke-width="2.5" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg>
+            動画プロジェクト
+          </div>
+          <div class="perm-item">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--c4)" stroke-width="2.5" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg>
+            <strong style="color:var(--c4)">公開一括管理 ▶ 表示・利用可</strong>
+          </div>
         </div>
       </div>
-      <div class="perm-cell">
-        <div class="perm-item">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--c4)" stroke-width="2.5" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg>
-          会員一覧
-        </div>
-        <div class="perm-item">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--c4)" stroke-width="2.5" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg>
-          動画プロジェクト
-        </div>
-        <div class="perm-item">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--crit)" stroke-width="2.5" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
-          <span style="color:rgba(241,245,249,0.4)">公開一括管理 ✕ 非表示</span>
+      <div class="perm-col">
+        <div class="perm-cell perm-cell-head" style="text-align:center">作業者（Operator）</div>
+        <div class="perm-cell">
+          <div class="perm-item">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--c4)" stroke-width="2.5" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg>
+            会員一覧
+          </div>
+          <div class="perm-item">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--c4)" stroke-width="2.5" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg>
+            動画プロジェクト
+          </div>
+          <div class="perm-item">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--crit)" stroke-width="2.5" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+            <span style="color:rgba(241,245,249,0.4)">公開一括管理 ✕ 非表示</span>
+          </div>
         </div>
       </div>
     </div>
@@ -598,7 +648,7 @@ body::before{content:'';position:fixed;inset:0;background:
 
     <div class="info-box">本脆弱性は以下のメトリクスに基づき <strong>Base Score: 4.3 (Medium)</strong> と評価されます。</div>
 
-    <table class="cvss-table">
+    <div class="cvss-table-wrap"><table class="cvss-table">
       <thead>
         <tr>
           <th>メトリクス</th>
@@ -648,7 +698,7 @@ body::before{content:'';position:fixed;inset:0;background:
           <td>サービスの可用性に影響を与えない。</td>
         </tr>
       </tbody>
-    </table>
+    </table></div>
 
     <!-- CTA -->
     <div class="report-cta">
