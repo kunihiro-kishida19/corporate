@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>脆弱性診断レポート サンプル | Balcony</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=Bebas+Neue&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#131f30;
+  --bg2:#1b2a3e;
+  --bg3:#243348;
+  --bg4:#0d1724;
+  --c1:#38bdf8;
+  --c2:#a5b4fc;
+  --c4:#34d399;
+  --text:#f1f5f9;
+  --text2:#c2d4e8;
+  --b1:rgba(56,189,248,0.22);
+  --b2:rgba(255,255,255,0.08);
+  --crit:#ef4444;
+  --high:#f59e0b;
+  --med:#38bdf8;
+  --low:#34d399;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'Noto Sans JP',sans-serif;line-height:1.7;overflow-x:hidden}
+
+/* AMBIENT */
+body::before{content:'';position:fixed;inset:0;background:
+  radial-gradient(ellipse 70% 50% at 95% 5%,rgba(56,189,248,0.10),transparent 55%),
+  radial-gradient(ellipse 50% 60% at 5% 80%,rgba(129,140,248,0.07),transparent 50%);
+  pointer-events:none;z-index:0}
+
+/* HEADER */
+.site-header{background:rgba(10,18,30,0.95);backdrop-filter:blur(28px);border-bottom:1px solid var(--b1);padding:16px 48px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
+.header-logo{font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:6px;color:var(--c1);text-decoration:none}
+.header-right{display:flex;align-items:center;gap:24px}
+.header-badge{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:600;letter-spacing:3px;padding:6px 14px;border:1px solid rgba(245,158,11,0.5);color:#f59e0b;text-transform:uppercase;background:rgba(245,158,11,0.07)}
+.header-back{font-size:13px;color:var(--text2);text-decoration:none;display:flex;align-items:center;gap:8px;transition:color 0.2s}
+.header-back:hover{color:var(--c1)}
+.header-back svg{width:16px;height:16px}
+
+/* LAYOUT */
+.report-layout{display:grid;grid-template-columns:260px 1fr;min-height:calc(100vh - 61px);position:relative;z-index:1}
+
+/* SIDEBAR */
+.sidebar{background:var(--bg4);border-right:1px solid var(--b1);padding:32px 0;position:sticky;top:61px;height:calc(100vh - 61px);overflow-y:auto}
+.sidebar-section{padding:0 24px;margin-bottom:8px}
+.sidebar-label{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:600;letter-spacing:4px;color:rgba(56,189,248,0.5);text-transform:uppercase;padding:20px 24px 10px;display:block}
+.sidebar-link{display:flex;align-items:center;gap:10px;padding:10px 24px;font-size:13px;color:var(--text2);text-decoration:none;transition:all 0.2s;border-left:2px solid transparent;line-height:1.4}
+.sidebar-link:hover{color:var(--c1);background:rgba(56,189,248,0.05);border-left-color:rgba(56,189,248,0.4)}
+.sidebar-link.active{color:var(--c1);background:rgba(56,189,248,0.07);border-left-color:var(--c1)}
+.sidebar-link .snum{font-family:'JetBrains Mono',monospace;font-size:10px;color:rgba(56,189,248,0.5);flex-shrink:0}
+.sidebar-divider{height:1px;background:var(--b1);margin:12px 24px}
+
+/* SEVERITY PILLS in sidebar */
+.sev-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
+.sev-dot.crit{background:var(--crit)}
+.sev-dot.high{background:var(--high)}
+.sev-dot.med{background:var(--med)}
+
+/* MAIN CONTENT */
+.report-main{padding:48px 56px;max-width:900px}
+
+/* SAMPLE BANNER */
+.sample-banner{background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.35);border-radius:4px;padding:14px 22px;margin-bottom:40px;display:flex;align-items:center;gap:14px;font-size:14px;color:#fbbf24}
+.sample-banner svg{flex-shrink:0;width:18px;height:18px}
+
+/* REPORT HEADER BLOCK */
+.report-title-block{margin-bottom:52px}
+.report-eyebrow{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:600;letter-spacing:5px;color:var(--c1);text-transform:uppercase;margin-bottom:16px;display:flex;align-items:center;gap:12px}
+.report-eyebrow::before{content:'';width:32px;height:1px;background:linear-gradient(90deg,var(--c1),transparent)}
+.report-main-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(36px,4vw,56px);line-height:1.0;letter-spacing:2px;margin-bottom:16px}
+.report-main-title span{color:var(--c1)}
+.report-subtitle{font-size:15px;color:var(--text2);line-height:1.8;max-width:680px}
+
+/* META TABLE */
+.meta-table{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:var(--b1);border:1px solid var(--b1);margin-bottom:52px}
+.meta-cell{background:var(--bg2);padding:20px 24px}
+.meta-label{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:600;letter-spacing:3px;color:var(--c1);text-transform:uppercase;margin-bottom:8px}
+.meta-value{font-size:15px;font-weight:700}
+.meta-value.crit{color:var(--crit)}
+.meta-value.high{color:var(--high)}
+.meta-value.med{color:var(--med)}
+
+/* SECTION HEADINGS */
+.section-anchor{scroll-margin-top:80px}
+.section-heading{font-family:'Bebas Neue',sans-serif;font-size:32px;letter-spacing:2px;margin-bottom:20px;display:flex;align-items:center;gap:16px;margin-top:64px}
+.section-heading:first-of-type{margin-top:0}
+.section-heading .sh-num{font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:600;color:var(--c1);background:rgba(56,189,248,0.08);border:1px solid var(--b1);padding:4px 10px;margin-right:4px}
+.section-heading .sh-accent{color:var(--c1)}
+.section-divider{height:1px;background:linear-gradient(90deg,var(--b1),transparent);margin:0 0 28px}
+
+/* SUMMARY CARD */
+.summary-card{background:var(--bg2);border:1px solid var(--b1);border-radius:4px;overflow:hidden;margin-bottom:32px}
+.summary-card-head{background:rgba(239,68,68,0.07);border-bottom:1px solid rgba(239,68,68,0.2);padding:16px 24px;display:flex;align-items:center;justify-content:space-between}
+.summary-card-head.med-head{background:rgba(56,189,248,0.07);border-bottom-color:rgba(56,189,248,0.2)}
+.sc-id{font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;color:var(--text2);letter-spacing:2px}
+.sc-sev{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:600;letter-spacing:1px;padding:4px 12px;border-radius:2px}
+.sc-sev.crit{background:rgba(239,68,68,0.15);color:var(--crit);border:1px solid rgba(239,68,68,0.35)}
+.sc-sev.high{background:rgba(245,158,11,0.15);color:var(--high);border:1px solid rgba(245,158,11,0.35)}
+.sc-sev.med{background:rgba(56,189,248,0.12);color:var(--c1);border:1px solid rgba(56,189,248,0.35)}
+.summary-card-body{padding:24px}
+.summary-rows{display:flex;flex-direction:column;gap:14px}
+.summary-row{display:grid;grid-template-columns:160px 1fr;gap:16px;align-items:flex-start}
+.sr-label{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:600;letter-spacing:2px;color:var(--text2);text-transform:uppercase;padding-top:2px}
+.sr-value{font-size:14px;line-height:1.7}
+.sr-value a{color:var(--c1);text-decoration:none;font-family:'JetBrains Mono',monospace;font-size:13px}
+.sr-value a:hover{text-decoration:underline}
+
+/* CVSS BADGE */
+.cvss-row{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.cvss-score{font-family:'Bebas Neue',sans-serif;font-size:40px;letter-spacing:2px;color:var(--med);line-height:1}
+.cvss-label{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text2);letter-spacing:2px}
+.cvss-vector{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text2);background:var(--bg4);border:1px solid var(--b1);padding:6px 12px;border-radius:2px;word-break:break-all}
+
+/* PROSE */
+.prose{font-size:15px;color:var(--text2);line-height:2;margin-bottom:24px}
+.prose strong{color:var(--text);font-weight:700}
+.prose code{font-family:'JetBrains Mono',monospace;font-size:12px;background:rgba(56,189,248,0.08);border:1px solid var(--b1);padding:2px 7px;border-radius:2px;color:var(--c1)}
+
+/* HIGHLIGHT BOX */
+.info-box{background:rgba(56,189,248,0.05);border:1px solid rgba(56,189,248,0.2);border-left:3px solid var(--c1);padding:18px 22px;margin-bottom:24px;font-size:14px;line-height:1.85;color:var(--text2)}
+.warn-box{background:rgba(239,68,68,0.05);border:1px solid rgba(239,68,68,0.2);border-left:3px solid var(--crit);padding:18px 22px;margin-bottom:24px;font-size:14px;line-height:1.85;color:var(--text2)}
+
+/* PERMISSION TABLE */
+.perm-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px;background:var(--b1);border:1px solid var(--b1);margin-bottom:28px;border-radius:4px;overflow:hidden}
+.perm-cell{background:var(--bg2);padding:18px 22px}
+.perm-cell-head{background:var(--bg3);border-bottom:1px solid var(--b1);font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:600;letter-spacing:2px;color:var(--c1);text-transform:uppercase}
+.perm-role{font-size:14px;font-weight:700;margin-bottom:8px;display:flex;align-items:center;gap:8px}
+.perm-role .badge-ok{background:rgba(52,211,153,0.12);color:var(--c4);border:1px solid rgba(52,211,153,0.3);font-family:'JetBrains Mono',monospace;font-size:10px;padding:2px 8px}
+.perm-role .badge-ng{background:rgba(239,68,68,0.12);color:var(--crit);border:1px solid rgba(239,68,68,0.3);font-family:'JetBrains Mono',monospace;font-size:10px;padding:2px 8px}
+.perm-item{font-size:13px;color:var(--text2);display:flex;align-items:center;gap:8px;padding:4px 0}
+.perm-item svg{flex-shrink:0}
+
+/* FLOW DIAGRAM */
+.flow-diagram{background:var(--bg4);border:1px solid var(--b1);border-radius:4px;padding:28px;margin-bottom:28px}
+.flow-diagram-title{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:600;letter-spacing:4px;color:var(--c1);text-transform:uppercase;margin-bottom:22px}
+.flow-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.flow-col-title{font-size:13px;font-weight:700;margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid var(--b1)}
+.flow-col-title.admin{color:var(--c4)}
+.flow-col-title.operator{color:var(--text2)}
+.flow-box{background:var(--bg2);border:1px solid var(--b1);border-radius:3px;padding:12px 14px;font-size:13px;text-align:center;position:relative}
+.flow-box.accent{border-color:rgba(52,211,153,0.4);color:var(--c4)}
+.flow-box.disabled{border-color:rgba(239,68,68,0.25);color:rgba(241,245,249,0.4);border-style:dashed}
+.flow-arrow{text-align:center;color:var(--text2);font-size:18px;line-height:1;margin:6px 0}
+.flow-arrow.blocked{color:rgba(239,68,68,0.5)}
+
+/* CODE BLOCK */
+.code-block{background:var(--bg4);border:1px solid var(--b1);border-radius:4px;overflow:hidden;margin-bottom:24px;font-family:'JetBrains Mono',monospace;font-size:12px}
+.code-block-header{background:rgba(56,189,248,0.06);border-bottom:1px solid var(--b1);padding:10px 18px;display:flex;align-items:center;justify-content:space-between}
+.code-block-lang{font-size:10px;font-weight:600;letter-spacing:3px;color:var(--c1);text-transform:uppercase}
+.code-block-type{font-size:10px;letter-spacing:1px;color:var(--text2)}
+.code-block pre{padding:20px 18px;overflow-x:auto;line-height:2;white-space:pre;color:var(--text2)}
+.code-block .k{color:#f472b6}
+.code-block .s{color:var(--c4)}
+.code-block .c{color:rgba(144,168,200,0.5)}
+.code-block .n{color:var(--c1)}
+.code-block .v{color:#f59e0b}
+
+/* NUMBERED LIST */
+.step-list{display:flex;flex-direction:column;gap:14px;margin-bottom:28px}
+.step-item{display:flex;gap:16px;align-items:flex-start}
+.step-num{flex-shrink:0;width:28px;height:28px;background:rgba(56,189,248,0.1);border:1px solid var(--b1);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:600;color:var(--c1);margin-top:2px}
+.step-content{font-size:14px;color:var(--text2);line-height:1.85}
+.step-content strong{color:var(--text)}
+
+/* IMPACT LIST */
+.impact-list{display:flex;flex-direction:column;gap:10px;margin-bottom:28px}
+.impact-item{display:flex;gap:14px;align-items:flex-start;padding:14px 18px;background:var(--bg2);border:1px solid var(--b1);font-size:14px;color:var(--text2);line-height:1.7}
+.impact-item svg{flex-shrink:0;color:var(--crit);margin-top:2px}
+.impact-item strong{color:var(--text)}
+
+/* REMEDIATION */
+.remedy-card{background:rgba(52,211,153,0.04);border:1px solid rgba(52,211,153,0.2);border-left:3px solid var(--c4);padding:22px 24px;margin-bottom:18px}
+.remedy-title{font-size:15px;font-weight:700;margin-bottom:10px;display:flex;align-items:center;gap:10px;color:var(--c4)}
+.remedy-title svg{width:16px;height:16px;flex-shrink:0}
+.remedy-text{font-size:14px;color:var(--text2);line-height:1.9}
+
+/* CVSS TABLE */
+.cvss-table{width:100%;border-collapse:collapse;margin-bottom:28px;font-size:13px}
+.cvss-table th{background:var(--bg3);padding:10px 16px;text-align:left;font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:600;letter-spacing:2px;color:var(--c1);text-transform:uppercase;border:1px solid var(--b1)}
+.cvss-table td{padding:12px 16px;border:1px solid var(--b1);background:var(--bg2);color:var(--text2);vertical-align:top}
+.cvss-table td:first-child{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--text);font-weight:600;background:rgba(56,189,248,0.04)}
+.cvss-table td .metric-val{display:inline-block;background:rgba(56,189,248,0.1);border:1px solid var(--b1);padding:2px 8px;font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--c1);margin-left:6px;border-radius:2px}
+
+/* CTA SECTION */
+.report-cta{background:linear-gradient(135deg,var(--bg2),var(--bg3));border:1px solid var(--b1);border-radius:6px;padding:40px;text-align:center;margin-top:72px;position:relative;overflow:hidden}
+.report-cta::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 0%,rgba(56,189,248,0.08),transparent 55%);pointer-events:none}
+.report-cta-label{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:600;letter-spacing:5px;color:var(--c1);text-transform:uppercase;margin-bottom:16px}
+.report-cta h3{font-family:'Bebas Neue',sans-serif;font-size:40px;letter-spacing:2px;margin-bottom:14px}
+.report-cta p{font-size:15px;color:var(--text2);margin-bottom:28px;line-height:1.8}
+.btn-cta{background:linear-gradient(135deg,var(--c1),#0ea5e9);color:var(--bg);border:none;padding:18px 48px;font-family:'Noto Sans JP',sans-serif;font-size:16px;font-weight:700;letter-spacing:2px;cursor:pointer;transition:all 0.3s;text-decoration:none;display:inline-block;border-radius:3px}
+.btn-cta:hover{transform:translateY(-3px);box-shadow:0 16px 48px rgba(56,189,248,0.35)}
+.btn-ghost{background:transparent;color:var(--text);border:1px solid rgba(241,245,249,0.2);padding:18px 36px;font-family:'Noto Sans JP',sans-serif;font-size:15px;font-weight:500;letter-spacing:1px;cursor:pointer;transition:all 0.3s;text-decoration:none;display:inline-block;margin-left:16px}
+.btn-ghost:hover{border-color:var(--c1);color:var(--c1)}
+
+/* FOOTER */
+.report-footer{background:var(--bg4);border-top:1px solid var(--b1);padding:24px 48px;display:flex;align-items:center;justify-content:space-between;font-size:12px;color:var(--text2)}
+.report-footer .fl{font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:5px;color:var(--c1)}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+  .report-layout{grid-template-columns:1fr}
+  .sidebar{display:none}
+  .report-main{padding:32px 24px}
+  .meta-table{grid-template-columns:1fr 1fr}
+  .perm-grid{grid-template-columns:1fr}
+  .flow-grid{grid-template-columns:1fr}
+  .site-header{padding:16px 24px}
+  .summary-row{grid-template-columns:1fr}
+}
+@media(max-width:640px){
+  .meta-table{grid-template-columns:1fr}
+  .cvss-row{flex-direction:column;align-items:flex-start}
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="site-header">
+  <a href="balcony-lp-v2.html" class="header-logo">BALCONY</a>
+  <div class="header-right">
+    <div class="header-badge">Sample Report</div>
+    <a href="balcony-lp-v2.html" class="header-back">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+      LPに戻る
+    </a>
+  </div>
+</header>
+
+<div class="report-layout">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <span class="sidebar-label">Report Index</span>
+    <a href="#s1" class="sidebar-link">
+      <span class="snum">1</span> 脆弱性サマリ
+    </a>
+    <a href="#s2" class="sidebar-link">
+      <span class="snum">2</span> 脆弱性の詳細説明
+    </a>
+    <a href="#s3" class="sidebar-link">
+      <span class="snum">3</span> 再現手順（PoC）
+    </a>
+    <a href="#s4" class="sidebar-link">
+      <span class="snum">4</span> 影響
+    </a>
+    <a href="#s5" class="sidebar-link">
+      <span class="snum">5</span> 技術的な原因
+    </a>
+    <a href="#s6" class="sidebar-link">
+      <span class="snum">6</span> 推奨対策
+    </a>
+    <a href="#s7" class="sidebar-link">
+      <span class="snum">7</span> CVSS v3.1 評価詳細
+    </a>
+    <div class="sidebar-divider"></div>
+    <span class="sidebar-label">Findings</span>
+    <a href="#s1" class="sidebar-link active">
+      <span class="sev-dot med"></span>
+      <span>sample-001 — Medium</span>
+    </a>
+    <div class="sidebar-divider"></div>
+    <span class="sidebar-label">Document</span>
+    <div class="sidebar-link" style="opacity:0.5;cursor:default">
+      <span class="snum">//</span> 実際の報告書には<br style="display:none">全所見が掲載されます
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="report-main">
+
+    <!-- SAMPLE BANNER -->
+    <div class="sample-banner">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      これはBalconyが実際に納品する脆弱性診断レポートの<strong style="color:#fbbf24">サンプル</strong>です。実在するシステムや固有情報はすべてダミーに置き換えています。
+    </div>
+
+    <!-- TITLE -->
+    <div class="report-title-block">
+      <div class="report-eyebrow">Balcony Security | 脆弱性診断レポート</div>
+      <h1 class="report-main-title">脆弱性診断<br><span>レポート</span></h1>
+      <p class="report-subtitle">作業者権限アカウントによる <code>/admin/bulk_publish/get_resource</code> エンドポイントへのアクセス制限不備</p>
+    </div>
+
+    <!-- META TABLE -->
+    <div class="meta-table">
+      <div class="meta-cell">
+        <div class="meta-label">脆弱性ID</div>
+        <div class="meta-value" style="font-family:'JetBrains Mono',monospace;font-size:14px">sample-001</div>
+      </div>
+      <div class="meta-cell">
+        <div class="meta-label">重要度</div>
+        <div class="meta-value med">Medium</div>
+      </div>
+      <div class="meta-cell">
+        <div class="meta-label">CVSSスコア</div>
+        <div class="meta-value med" style="font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:2px">4.3</div>
+      </div>
+      <div class="meta-cell" style="grid-column:1/-1">
+        <div class="meta-label">脆弱性種別</div>
+        <div class="meta-value" style="font-size:14px;font-weight:500">認可・権限制御の不備 / アクセス制限 (Broken Access Control)</div>
+      </div>
+    </div>
+
+    <!-- ==================== SECTION 1 ==================== -->
+    <div class="section-anchor" id="s1">
+      <div class="section-heading">
+        <span class="sh-num">1</span>
+        脆弱性<span class="sh-accent">サマリ</span>
+      </div>
+      <div class="section-divider"></div>
+    </div>
+
+    <div class="summary-card">
+      <div class="summary-card-head med-head">
+        <span class="sc-id">sample-001</span>
+        <span class="sc-sev med">MEDIUM</span>
+      </div>
+      <div class="summary-card-body">
+        <div class="summary-rows">
+          <div class="summary-row">
+            <span class="sr-label">脆弱性名</span>
+            <span class="sr-value">作業者権限アカウントによる <code>/admin/bulk_publish/get_resource</code> エンドポイントへのアクセス制限不備</span>
+          </div>
+          <div class="summary-row">
+            <span class="sr-label">脆弱性種別</span>
+            <span class="sr-value">認可・権限制御の不備 / Broken Access Control</span>
+          </div>
+          <div class="summary-row">
+            <span class="sr-label">CVSSスコア</span>
+            <span class="sr-value">
+              <div class="cvss-row">
+                <div>
+                  <div class="cvss-score">4.3</div>
+                  <div class="cvss-label">Medium</div>
+                </div>
+                <div class="cvss-vector">CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:L/I:N/A:N</div>
+              </div>
+            </span>
+          </div>
+          <div class="summary-row">
+            <span class="sr-label">該当URL</span>
+            <span class="sr-value"><a href="#">https://sample-service.com/admin/bulk_publish/get_resource</a></span>
+          </div>
+          <div class="summary-row">
+            <span class="sr-label">想定される脅威</span>
+            <span class="sr-value">作業者権限アカウントが、本来は上位権限のユーザーに限定すべき公開一括管理機能向けのエンドポイント（<code>/admin/bulk_publish/get_resource</code>）に対して、自身のセッション情報を用いたHTTPリクエストを送信し、正常なレスポンスを取得できてしまいます。</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== SECTION 2 ==================== -->
+    <div class="section-anchor" id="s2">
+      <div class="section-heading">
+        <span class="sh-num">2</span>
+        脆弱性の<span class="sh-accent">詳細説明</span>
+      </div>
+      <div class="section-divider"></div>
+    </div>
+
+    <p class="prose">対象システムには、管理者や作業者など複数の権限ロールが定義されており、各ロールごとに利用可能な機能が整理されています。</p>
+
+    <div class="info-box">
+      <strong>権限制御の仕様：</strong>「権限制御可能操作一覧」では、作業者ロールには公開一括管理機能の権限が付与されておらず、上位権限のユーザーのみが利用できる前提で設計されています。
+    </div>
+
+    <!-- Permission grid -->
+    <div class="perm-grid">
+      <div class="perm-cell perm-cell-head" style="text-align:center">管理者（Admin）</div>
+      <div class="perm-cell perm-cell-head" style="text-align:center">作業者（Operator）</div>
+      <div class="perm-cell">
+        <div class="perm-item">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--c4)" stroke-width="2.5" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg>
+          会員一覧
+        </div>
+        <div class="perm-item">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--c4)" stroke-width="2.5" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg>
+          動画プロジェクト
+        </div>
+        <div class="perm-item">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--c4)" stroke-width="2.5" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg>
+          <strong style="color:var(--c4)">公開一括管理 ▶ 表示・利用可</strong>
+        </div>
+      </div>
+      <div class="perm-cell">
+        <div class="perm-item">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--c4)" stroke-width="2.5" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg>
+          会員一覧
+        </div>
+        <div class="perm-item">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--c4)" stroke-width="2.5" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg>
+          動画プロジェクト
+        </div>
+        <div class="perm-item">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--crit)" stroke-width="2.5" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+          <span style="color:rgba(241,245,249,0.4)">公開一括管理 ✕ 非表示</span>
+        </div>
+      </div>
+    </div>
+
+    <p class="prose" style="margin-top:8px"><strong>実際の挙動（フロントエンド）：</strong>作業者権限でログインした場合にはメニュー上に公開一括管理機能が表示されず、画面の操作だけでは当該機能に遷移できないように制御されています。一方で、管理者権限でログインした場合にはメニューから選択可能であり、対象の機能画面に遷移できることが確認されています。</p>
+
+    <!-- Flow diagram -->
+    <div class="flow-diagram">
+      <div class="flow-diagram-title">// アクセス制御の概要図</div>
+      <div class="flow-grid">
+        <div>
+          <div class="flow-col-title admin">管理者でログインした場合</div>
+          <div class="flow-box">サイドメニュー</div>
+          <div class="flow-arrow">↓</div>
+          <div class="flow-box">会員一覧 / プロジェクト</div>
+          <div class="flow-arrow">↓</div>
+          <div class="flow-box accent">▶ 公開一括管理（表示）</div>
+        </div>
+        <div>
+          <div class="flow-col-title operator">作業者でログインした場合（画面制御）</div>
+          <div class="flow-box">サイドメニュー</div>
+          <div class="flow-arrow">↓</div>
+          <div class="flow-box">会員一覧 / プロジェクト</div>
+          <div class="flow-arrow blocked">↓ ⋯（非表示）</div>
+          <div class="flow-box disabled">✕ 公開一括管理（非表示）</div>
+        </div>
+      </div>
+    </div>
+
+    <p class="prose"><strong>バックエンド（API）の挙動：</strong>公開一括管理機能の画面URL（<code>https://sample-service.com/admin/bulk_publish/</code>）にアクセスした際には、バックエンドで <code>/admin/bulk_publish/get_resource</code> エンドポイントが呼び出される構成になっています。しかし当該エンドポイントに対するAPIレベルの認可チェックが実装されておらず、作業者権限のセッションでも正常なレスポンスを取得できる状態です。</p>
+
+    <!-- ==================== SECTION 3 ==================== -->
+    <div class="section-anchor" id="s3">
+      <div class="section-heading">
+        <span class="sh-num">3</span>
+        再現手順 <span class="sh-accent">（Proof of Concept）</span>
+      </div>
+      <div class="section-divider"></div>
+    </div>
+
+    <div class="info-box"><strong>前提条件：</strong>正規の作業者権限アカウントを保有していること。</div>
+
+    <div class="step-list">
+      <div class="step-item">
+        <div class="step-num">1</div>
+        <div class="step-content"><strong>仕様確認：</strong>権限一覧を確認し、公開一括管理機能は作業者が利用不可であることを確認します。</div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">2</div>
+        <div class="step-content"><strong>画面挙動の確認：</strong>作業者権限でログインし、メニューに機能が表示されないことを確認します。</div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">3</div>
+        <div class="step-content"><strong>セッション取得：</strong>ブラウザの開発者ツールを用いて、作業者権限アカウントのセッション情報を取得します。</div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">4</div>
+        <div class="step-content"><strong>攻撃リクエスト送信：</strong>取得したセッション情報を付与した状態で、直接 <code>POST /admin/bulk_publish/get_resource</code> エンドポイントへリクエストを送信します。</div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">5</div>
+        <div class="step-content"><strong>結果確認：</strong>成功を示すステータスコード（<code>200 OK</code>）と、機密データが返却されることを確認します。</div>
+      </div>
+    </div>
+
+    <!-- HTTP Request -->
+    <div class="code-block">
+      <div class="code-block-header">
+        <span class="code-block-lang">HTTP Request</span>
+        <span class="code-block-type">▼ 攻撃リクエスト</span>
+      </div>
+      <pre><span class="k">POST</span> <span class="s">/admin/bulk_publish/get_resource</span> HTTP/2
+<span class="n">Host:</span> <span class="v">sample-service.com</span>
+<span class="n">Cookie:</span> <span class="v">session_id=sample_operator_session_12345; ...</span>
+<span class="n">User-Agent:</span> Mozilla/5.0 ...
+<span class="n">Content-Type:</span> <span class="v">application/json</span>
+<span class="n">Origin:</span> <span class="v">https://sample-service.com</span>
+<span class="n">Referer:</span> <span class="v">https://sample-service.com/admin/dashboard</span>
+
+<span class="c">{</span>
+  <span class="n">"request_type":</span> <span class="s">"initial_load"</span>,
+  <span class="n">"params":</span> <span class="k">null</span>
+<span class="c">}</span></pre>
+    </div>
+
+    <!-- HTTP Response -->
+    <div class="code-block">
+      <div class="code-block-header">
+        <span class="code-block-lang">HTTP Response</span>
+        <span class="code-block-type" style="color:var(--crit)">▼ 200 OK（認可チェックなし）</span>
+      </div>
+      <pre><span class="k">HTTP/2</span> <span class="s">200 OK</span>
+<span class="n">Server:</span> nginx
+<span class="n">Content-Type:</span> <span class="v">application/json; charset=utf-8</span>
+<span class="n">X-Frame-Options:</span> SAMEORIGIN
+
+<span class="c">{</span>
+  <span class="n">"result":</span> <span class="s">"success"</span>,
+  <span class="n">"error":</span> [],
+  <span class="n">"count":</span> <span class="v">5</span>,
+  <span class="n">"videos":</span> [
+    <span class="c">{</span>
+      <span class="n">"id":</span> <span class="v">10440</span>,
+      <span class="n">"title":</span> <span class="s">"Secret_Project"</span>,
+      <span class="n">"upload_datetime":</span> <span class="s">"2025-11-28 18:02:50"</span>,
+      <span class="n">"public_datetime":</span> <span class="s">"2025-11-28 18:23:33"</span>,
+      <span class="n">"member_id":</span> <span class="v">252</span>
+    <span class="c">}</span>
+  ]
+<span class="c">}</span></pre>
+    </div>
+
+    <!-- ==================== SECTION 4 ==================== -->
+    <div class="section-anchor" id="s4">
+      <div class="section-heading">
+        <span class="sh-num">4</span>
+        <span class="sh-accent">影響</span>
+      </div>
+      <div class="section-divider"></div>
+    </div>
+
+    <p class="prose">本脆弱性により、本来は公開一括管理機能の利用権限を持たない作業者権限アカウントが、当該機能のバックエンドAPIへ直接アクセスできる状態になっています。</p>
+
+    <div class="impact-list">
+      <div class="impact-item">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        <div><strong>仕様との乖離：</strong>「作業者は機能を利用できない」という仕様と、実際のシステム挙動が一致していません。</div>
+      </div>
+      <div class="impact-item">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        <div><strong>権限昇格・情報参照：</strong>作業者アカウントが、権限外の機密コンテンツ（非公開プロジェクトのタイトル・日時・メンバーIDなど）を参照可能な状態です。</div>
+      </div>
+      <div class="impact-item">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        <div><strong>将来的なリスク：</strong>同様の設計パターンが他のエンドポイントにも存在する可能性があり、機能追加に伴って影響範囲が拡大するリスクがあります。</div>
+      </div>
+    </div>
+
+    <!-- ==================== SECTION 5 ==================== -->
+    <div class="section-anchor" id="s5">
+      <div class="section-heading">
+        <span class="sh-num">5</span>
+        技術的な<span class="sh-accent">原因</span>
+      </div>
+      <div class="section-divider"></div>
+    </div>
+
+    <div class="warn-box">
+      技術的な原因は、公開一括管理機能のバックエンドAPIである <code>/admin/bulk_publish/get_resource</code> エンドポイントに対する<strong>認可チェックが適切に実装されていない</strong>ことにあります。フロントエンドの表示制御はされているものの、バックエンドでのセッション検証・権限照合処理が欠落しています。
+    </div>
+
+    <p class="prose">フロントエンドの非表示制御と、バックエンドAPIのアクセス制御は<strong>独立して実装</strong>される必要があります。フロントエンドの制御のみではHTTPリクエストを直接送信することで容易に回避できるため、バックエンド側での認可処理が不可欠です。</p>
+
+    <!-- ==================== SECTION 6 ==================== -->
+    <div class="section-anchor" id="s6">
+      <div class="section-heading">
+        <span class="sh-num">6</span>
+        <span class="sh-accent">推奨対策</span>
+      </div>
+      <div class="section-divider"></div>
+    </div>
+
+    <div class="remedy-card">
+      <div class="remedy-title">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
+        1. バックエンドAPIでの認可チェックの実装
+      </div>
+      <div class="remedy-text">エンドポイント処理の冒頭で、セッション等から取得したユーザーの権限ロールを確認し、公開一括管理機能の利用が許可されているロール以外からのアクセスを拒否してください。作業者権限からのリクエストには <code>403 Forbidden</code> を返却する処理を追加します。</div>
+    </div>
+
+    <div class="remedy-card">
+      <div class="remedy-title">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
+        2. 認可処理の共通化
+      </div>
+      <div class="remedy-text">権限チェックロジックを各エンドポイントに個別実装するのではなく、ミドルウェアやデコレータとして共通化することを推奨します。これにより、将来的な機能追加時の漏れを防止できます。</div>
+    </div>
+
+    <div class="remedy-card">
+      <div class="remedy-title">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
+        3. テストの実施
+      </div>
+      <div class="remedy-text">是正後は、異なる権限ロールで保護されたエンドポイントへの直接アクセスを試みる認可テストを実施し、適切に拒否されることを確認してください。</div>
+    </div>
+
+    <!-- ==================== SECTION 7 ==================== -->
+    <div class="section-anchor" id="s7">
+      <div class="section-heading">
+        <span class="sh-num">7</span>
+        CVSS v3.1 <span class="sh-accent">評価詳細</span>
+      </div>
+      <div class="section-divider"></div>
+    </div>
+
+    <div class="info-box">本脆弱性は以下のメトリクスに基づき <strong>Base Score: 4.3 (Medium)</strong> と評価されます。</div>
+
+    <table class="cvss-table">
+      <thead>
+        <tr>
+          <th>メトリクス</th>
+          <th>評価値</th>
+          <th>根拠</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>攻撃元区分 (AV)<span class="metric-val">N</span></td>
+          <td>Network</td>
+          <td>HTTPベースのWebアプリケーションであり、ネットワーク越しにリクエストを送信して再現できるため。</td>
+        </tr>
+        <tr>
+          <td>攻撃条件の複雑さ (AC)<span class="metric-val">L</span></td>
+          <td>Low</td>
+          <td>特別な条件なしに、標準的なHTTPクライアントで再現可能。</td>
+        </tr>
+        <tr>
+          <td>必要な特権レベル (PR)<span class="metric-val">L</span></td>
+          <td>Low</td>
+          <td>作業者権限の正規アカウント（最低限の権限）で再現可能。</td>
+        </tr>
+        <tr>
+          <td>ユーザー関与 (UI)<span class="metric-val">N</span></td>
+          <td>None</td>
+          <td>攻撃者単独で操作可能。他ユーザーの関与は不要。</td>
+        </tr>
+        <tr>
+          <td>スコープ (S)<span class="metric-val">U</span></td>
+          <td>Unchanged</td>
+          <td>影響範囲は当該システムの脆弱なコンポーネント内に限定される。</td>
+        </tr>
+        <tr>
+          <td>機密性への影響 (C)<span class="metric-val">L</span></td>
+          <td>Low</td>
+          <td>権限外のコンテンツ情報（タイトル・日時・メンバーID等）を参照可能。完全な情報漏洩ではない。</td>
+        </tr>
+        <tr>
+          <td>完全性への影響 (I)<span class="metric-val">N</span></td>
+          <td>None</td>
+          <td>読み取り専用の操作であり、データの改ざんは確認されない。</td>
+        </tr>
+        <tr>
+          <td>可用性への影響 (A)<span class="metric-val">N</span></td>
+          <td>None</td>
+          <td>サービスの可用性に影響を与えない。</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- CTA -->
+    <div class="report-cta">
+      <div class="report-cta-label">// Contact Balcony</div>
+      <h3>実際の診断に<span style="color:var(--c1)">ご興味がありますか？</span></h3>
+      <p>このようなレポートを、お客様のシステムに対して作成します。<br>まずは無料ヒアリング・お見積りからお気軽にどうぞ。</p>
+      <a href="balcony-lp-v2.html#contact" class="btn-cta">無料相談を申し込む</a>
+      <a href="balcony-lp-v2.html" class="btn-ghost">LPに戻る</a>
+    </div>
+
+  </main>
+</div>
+
+<footer class="report-footer">
+  <div class="fl">BALCONY</div>
+  <div>© 2025 Balcony合同会社 — このレポートはサンプルです。実在のシステムや情報はダミーに置き換えています。</div>
+</footer>
+
+<script>
+// Active sidebar link on scroll
+var sections = document.querySelectorAll('.section-anchor');
+var sidebarLinks = document.querySelectorAll('.sidebar-link[href^="#"]');
+var observer = new IntersectionObserver(function(entries) {
+  entries.forEach(function(entry) {
+    if (entry.isIntersecting) {
+      var id = entry.target.id;
+      sidebarLinks.forEach(function(link) {
+        link.classList.toggle('active', link.getAttribute('href') === '#' + id);
+      });
+    }
+  });
+}, { rootMargin: '-20% 0px -70% 0px' });
+sections.forEach(function(s) { observer.observe(s); });
+</script>
+</body>
+</html>
