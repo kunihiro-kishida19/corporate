@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; script-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self' https://formspree.io; frame-ancestors 'self';">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SERVICE | Balcony</title>
+<meta name="description" content="Balcony合同会社のサービス一覧。コンサルティング、テクノロジー、ITマネジメントの3領域で、新たな価値創造を支援します。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/style.css">
+<style>
+/* ── SERVICE INTRO ── */
+.svc-intro{background:var(--white)}
+.svc-intro-inner{max-width:780px;margin:0 auto;text-align:center}
+.svc-intro-inner .section-desc{max-width:640px;margin:0 auto}
+
+/* ── SERVICE DETAIL SECTIONS ── */
+.svc-detail{background:var(--bg)}
+.svc-detail:nth-child(even){background:var(--white)}
+.svc-detail-inner{display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:center}
+.svc-detail.reverse .svc-detail-inner{direction:rtl}
+.svc-detail.reverse .svc-detail-inner > *{direction:ltr}
+
+.svc-detail-img-wrap{position:relative;border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--sh-lg)}
+.svc-detail-img{width:100%;height:540px;object-fit:cover;display:block}
+.svc-detail-img-wrap::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(107,143,113,0.08),transparent 60%);pointer-events:none}
+
+.svc-detail-num{font-family:'Plus Jakarta Sans',sans-serif;font-size:108px;font-weight:800;color:var(--border-l);line-height:1;margin-bottom:8px;letter-spacing:-2px}
+.svc-detail-name-en{font-family:'Plus Jakarta Sans',sans-serif;font-size:17px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--g2);margin-bottom:6px}
+.svc-detail-name{font-size:clamp(36px,4.5vw,48px);font-weight:900;color:var(--text);line-height:1.3;margin-bottom:18px}
+.svc-detail-desc{font-size:23px;color:var(--text-m);line-height:2;margin-bottom:28px}
+.svc-detail-tags{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:28px}
+.svc-detail-tag{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;background:var(--g-light);border-radius:6px;font-size:20px;font-weight:500;color:var(--text-b);border:1px solid var(--border-l);transition:all var(--t)}
+.svc-detail-tag:hover{background:var(--g-pale);border-color:var(--g2);color:var(--g1)}
+.svc-detail-tag svg{width:14px;height:14px;stroke:var(--g2);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
+
+/* ── SERVICE APPROACH ── */
+.svc-approach{background:var(--white)}
+.svc-approach-inner{max-width:960px;margin:0 auto}
+.svc-approach-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:32px;margin-top:48px}
+.svc-approach-card{padding:36px 28px;background:var(--bg);border-radius:var(--r-lg);border:1px solid var(--border-l);text-align:center;transition:all var(--t)}
+.svc-approach-card:hover{transform:translateY(-4px);box-shadow:var(--sh-md);border-color:var(--border)}
+.svc-approach-icon{width:52px;height:52px;background:var(--g-light);border-radius:12px;display:flex;align-items:center;justify-content:center;margin:0 auto 20px;transition:background var(--t)}
+.svc-approach-card:hover .svc-approach-icon{background:var(--g1)}
+.svc-approach-card:hover .svc-approach-icon svg{stroke:white}
+.svc-approach-icon svg{width:22px;height:22px;stroke:var(--g1);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;transition:stroke var(--t)}
+.svc-approach-title{font-size:23px;font-weight:700;color:var(--text);margin-bottom:10px}
+.svc-approach-text{font-size:20px;color:var(--text-m);line-height:1.9}
+
+/* ── CASE STUDIES ── */
+.case-section{background:var(--white)}
+.case-section-inner{max-width:1080px;margin:0 auto}
+.case-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:32px;margin-top:48px}
+.case-card{background:var(--bg);border-radius:var(--r-lg);border:1px solid var(--border-l);overflow:hidden;transition:all var(--t)}
+.case-card:hover{transform:translateY(-4px);box-shadow:var(--sh-md);border-color:var(--border)}
+.case-card-header{background:var(--g1);padding:20px 28px;display:flex;align-items:center;gap:14px}
+.case-card-icon{width:44px;height:44px;background:rgba(255,255,255,0.15);border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.case-card-icon svg{width:22px;height:22px;stroke:white;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.case-card-cat{font-size:20px;font-weight:700;color:white;letter-spacing:0.5px}
+.case-card-body{padding:32px 28px}
+.case-card-title{font-size:23px;font-weight:700;color:var(--text);line-height:1.5;margin-bottom:16px}
+.case-card-desc{font-size:20px;color:var(--text-m);line-height:2}
+.case-card-tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px}
+.case-card-tag{display:inline-flex;align-items:center;gap:4px;padding:5px 12px;background:var(--g-light);border-radius:4px;font-size:18px;font-weight:500;color:var(--g1);border:1px solid var(--border-l)}
+
+/* ── RESPONSIVE ── */
+@media(max-width:960px){
+  .svc-detail-inner{grid-template-columns:1fr;gap:40px}
+  .svc-detail.reverse .svc-detail-inner{direction:ltr}
+  .svc-approach-grid{grid-template-columns:1fr;gap:20px}
+  .case-grid{grid-template-columns:1fr;gap:24px}
+}
+@media(max-width:768px){
+  .svc-detail-img{height:340px}
+  .svc-detail-num{font-size:78px}
+}
+</style>
+</head>
+<body>
+
+<div id="toast-popup" role="alert" aria-live="polite">
+  <div class="toast-icon"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></div>
+  <div><div class="toast-title">送信ありがとうございました</div><div class="toast-sub">担当者よりご連絡いたします。</div></div>
+  <div class="toast-bar"></div>
+</div>
+
+<div class="mobile-menu" id="mobile-menu">
+  <a href="../" data-page="home" onclick="closeMenu()">Home</a>
+  <a href="../service/" data-page="service" onclick="closeMenu()">Service</a>
+  <a href="../company/" data-page="company" onclick="closeMenu()">Company</a>
+  <a href="../news/" data-page="news" onclick="closeMenu()">News</a>
+  <a href="../contact/" class="m-contact" data-page="contact" onclick="closeMenu()">Contact</a>
+</div>
+
+<nav class="nav" id="main-nav">
+  <a href="../" class="nav-logo"><img src="../img/corporate_LOGO/Balcony_B1.png" alt="Balcony"></a>
+  <div class="nav-links">
+    <a href="../" data-page="home">HOME</a>
+    <a href="../service/" data-page="service">SERVICE</a>
+    <a href="../company/" data-page="company">COMPANY</a>
+    <a href="../news/" data-page="news">NEWS</a>
+    <a href="../contact/" class="nav-contact-btn" data-page="contact">CONTACT</a>
+  </div>
+  <button class="hamburger" id="hamburger" aria-label="メニュー"><span></span><span></span><span></span></button>
+</nav>
+
+<!-- PAGE HERO -->
+<section class="page-hero">
+  <div class="page-hero-bg" style="background-image:url('../img/contents/web-gbe9cb057f_1920.jpg')"></div>
+  <div class="page-hero-overlay"></div>
+  <div class="page-hero-content">
+    <div class="page-hero-tag">Our Service</div>
+    <h1 class="page-hero-title">Service</h1>
+  </div>
+</section>
+
+<!-- SERVICE INTRO -->
+<section class="section svc-intro">
+  <div class="svc-intro-inner">
+    <div class="reveal"><div class="section-tag">What We Offer</div></div>
+    <h2 class="section-title reveal d1">価値創造を支える<br>3つの領域</h2>
+    <span class="divider reveal d2" style="margin-left:auto;margin-right:auto"></span>
+    <p class="section-desc reveal d3">Balconyは、コンサルティング・テクノロジー・ITマネジメントの3つの専門領域を通じて、お客様のビジネスにおける新たな価値の定義と創造を支援します。戦略立案から技術実装、プロジェクト推進まで、一気通貫でサポートいたします。</p>
+  </div>
+</section>
+
+<!-- SERVICE APPROACH -->
+<section class="section svc-approach">
+  <div class="svc-approach-inner">
+    <div style="text-align:center">
+      <div class="reveal"><div class="section-tag" style="justify-content:center">Our Approach</div></div>
+      <h2 class="section-title reveal d1" style="text-align:center">Balconyの強み</h2>
+      <span class="divider reveal d2" style="margin-left:auto;margin-right:auto"></span>
+    </div>
+    <div class="svc-approach-grid">
+      <div class="svc-approach-card reveal">
+        <div class="svc-approach-icon">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+        </div>
+        <div class="svc-approach-title">迅速な対応</div>
+        <div class="svc-approach-text">少数精鋭のプロフェッショナル集団による、スピード感のある意思決定と実行力で、お客様の課題に素早く対応します。</div>
+      </div>
+      <div class="svc-approach-card reveal d1">
+        <div class="svc-approach-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+        </div>
+        <div class="svc-approach-title">領域横断の知見</div>
+        <div class="svc-approach-text">戦略・技術・マネジメントの各専門家が連携し、分野を横断した最適なソリューションをご提案します。</div>
+      </div>
+      <div class="svc-approach-card reveal d2">
+        <div class="svc-approach-icon">
+          <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </div>
+        <div class="svc-approach-title">伴走型パートナー</div>
+        <div class="svc-approach-text">プロジェクトの一時的な支援ではなく、お客様と共に成長し続けるパートナーとして長期的な価値を共創します。</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICE 01: CONSULTING -->
+<section class="section svc-detail" id="consulting">
+  <div class="svc-detail-inner">
+    <div>
+      <div class="svc-detail-num reveal">01</div>
+      <div class="svc-detail-name-en reveal d1">Consulting</div>
+      <h2 class="svc-detail-name reveal d2">コンサルティング</h2>
+      <span class="divider reveal d3"></span>
+      <p class="svc-detail-desc reveal d4">新規事業の立ち上げからマーケティング戦略の策定、M&Aにおけるデューデリジェンスまで、ビジネスの成長を多角的に支援します。市場分析や競合調査に基づいた戦略提案で、お客様のビジョンを具体的なアクションプランに落とし込みます。</p>
+      <div class="svc-detail-tags reveal d4">
+        <div class="svc-detail-tag">
+          <svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+          新規事業開発
+        </div>
+        <div class="svc-detail-tag">
+          <svg viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+          マーケティング戦略
+        </div>
+        <div class="svc-detail-tag">
+          <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+          M&amp;A
+        </div>
+      </div>
+    </div>
+    <div class="svc-detail-img-wrap reveal from-right">
+      <img src="../img/contents/mohamed_hassan-teamwork-3213924_1920.jpg" alt="Consulting" class="svc-detail-img">
+    </div>
+  </div>
+</section>
+
+<!-- SERVICE 02: TECHNOLOGY -->
+<section class="section svc-detail reverse" id="technology">
+  <div class="svc-detail-inner">
+    <div>
+      <div class="svc-detail-num reveal">02</div>
+      <div class="svc-detail-name-en reveal d1">Technology</div>
+      <h2 class="svc-detail-name reveal d2">テクノロジー</h2>
+      <span class="divider reveal d3"></span>
+      <p class="svc-detail-desc reveal d4">生成AIの活用からシステム開発、BPaaS（Business Process as a Service）の構築、セキュリティ脆弱性診断まで、最新のテクノロジーを駆使してビジネス課題を解決します。技術的な優位性を活かし、お客様のプロダクトやサービスに競争力をもたらします。</p>
+      <div class="svc-detail-tags reveal d4">
+        <div class="svc-detail-tag">
+          <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+          生成AI
+        </div>
+        <div class="svc-detail-tag">
+          <svg viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+          システム開発
+        </div>
+        <div class="svc-detail-tag">
+          <svg viewBox="0 0 24 24"><path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9z"/></svg>
+          BPaaS
+        </div>
+        <div class="svc-detail-tag">
+          <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          脆弱性診断
+        </div>
+      </div>
+      <a href="../security/" class="btn-outline-green reveal d5">
+        脆弱性診断 詳細
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+    <div class="svc-detail-img-wrap reveal from-left">
+      <img src="../img/contents/AdobeStock_375923537.jpeg" alt="Technology" class="svc-detail-img">
+    </div>
+  </div>
+</section>
+
+<!-- SERVICE 03: IT MANAGEMENT -->
+<section class="section svc-detail" id="it-management">
+  <div class="svc-detail-inner">
+    <div>
+      <div class="svc-detail-num reveal">03</div>
+      <div class="svc-detail-name-en reveal d1">IT Management</div>
+      <h2 class="svc-detail-name reveal d2">ITマネジメント</h2>
+      <span class="divider reveal d3"></span>
+      <p class="svc-detail-desc reveal d4">プロダクトマネジメントからプロジェクトマネジメント（PM）、PMOの運営まで、ITプロジェクトの成功に欠かせないマネジメント支援を提供します。経験豊富なマネージャーが、プロジェクトの計画・実行・監視をリードし、確実な成果創出を実現します。</p>
+      <div class="svc-detail-tags reveal d4">
+        <div class="svc-detail-tag">
+          <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>
+          プロダクトマネジメント
+        </div>
+        <div class="svc-detail-tag">
+          <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          PM・PMO
+        </div>
+      </div>
+    </div>
+    <div class="svc-detail-img-wrap reveal from-right">
+      <img src="../img/contents/geralt-project-management-7140607_1920.jpg" alt="IT Management" class="svc-detail-img">
+    </div>
+  </div>
+</section>
+
+<!-- CASE STUDIES -->
+<section class="section case-section">
+  <div class="case-section-inner">
+    <div style="text-align:center">
+      <div class="reveal"><div class="section-tag" style="justify-content:center">Case Studies</div></div>
+      <h2 class="section-title reveal d1">事例紹介</h2>
+      <span class="divider reveal d2" style="margin-left:auto;margin-right:auto"></span>
+      <p class="section-desc reveal d3" style="margin:0 auto">各領域における支援実績の一部をご紹介します。</p>
+    </div>
+    <div class="case-grid">
+      <div class="case-card reveal">
+        <div class="case-card-header">
+          <div class="case-card-icon">
+            <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </div>
+          <div class="case-card-cat">セキュリティ</div>
+        </div>
+        <div class="case-card-body">
+          <h3 class="case-card-title">物流系システムにおける脆弱性診断</h3>
+          <p class="case-card-desc">SIer様から受託した大規模物流システムに対して、包括的な脆弱性診断を実施。Webアプリケーション・APIの診断を通じて、潜在的なセキュリティリスクを特定し、具体的な改善策を提案しました。</p>
+          <div class="case-card-tags">
+            <span class="case-card-tag">脆弱性診断</span>
+            <span class="case-card-tag">Webアプリ</span>
+            <span class="case-card-tag">API診断</span>
+          </div>
+        </div>
+      </div>
+      <div class="case-card reveal d1">
+        <div class="case-card-header">
+          <div class="case-card-icon">
+            <svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+          </div>
+          <div class="case-card-cat">コンサルティング</div>
+        </div>
+        <div class="case-card-body">
+          <h3 class="case-card-title">経営層向けグループガバナンス・IT投資アドバイザリー</h3>
+          <p class="case-card-desc">大手ファーマ企業から受託し、経営層に対するグループガバナンスの最適化およびIT投資戦略に関するアドバイザリーを提供。グループ全体のIT統制強化と投資対効果の最大化を支援しました。</p>
+          <div class="case-card-tags">
+            <span class="case-card-tag">ガバナンス</span>
+            <span class="case-card-tag">IT投資</span>
+            <span class="case-card-tag">経営支援</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT CTA -->
+<section class="contact-cta">
+  <div class="reveal"><div class="section-tag">Contact</div></div>
+  <h2 class="section-title reveal d1">お問い合わせはこちら</h2>
+  <p class="section-desc reveal d2">ご相談・ご質問はお気軽にお問い合わせください。</p>
+  <div class="contact-cta-btns reveal d3">
+    <a href="../contact/" class="btn-white">
+      お問い合わせフォーム
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+    <a href="../company/" class="btn-ghost-white">会社概要を見る</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div>
+      <img src="../img/corporate_LOGO/Balcony_W1.png" alt="Balcony" class="footer-logo-img">
+      <div class="footer-tagline">新しい価値を定義する<br>Define New Value</div>
+    </div>
+    <div>
+      <div class="footer-col-h">Company</div>
+      <div class="footer-col-links">
+        <a href="../company/">About Company</a>
+      </div>
+    </div>
+    <div>
+      <div class="footer-col-h">Service</div>
+      <div class="footer-col-links">
+        <a href="../service/">Service Overview</a>
+        <a href="../security/">Security Diagnosis</a>
+      </div>
+    </div>
+    <div>
+      <div class="footer-col-h">Other</div>
+      <div class="footer-col-links">
+        <a href="../news/">News</a>
+        <a href="../contact/">Contact</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-copy">Copyright Balcony inc. ALL Rights Reserved.</div>
+  </div>
+</footer>
+
+<a href="../contact/" id="float-contact" class="float-contact">
+  お問い合わせ
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+</a>
+
+<script src="../js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; script-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self' https://formspree.io; frame-ancestors 'self';">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>News | Balcony</title>
+<meta name="description" content="Balcony合同会社のニュース・お知らせ一覧です。最新の情報をお届けします。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/style.css">
+<style>
+/* ── NEWS PAGE ── */
+.news-page-section{
+  background:var(--white);
+}
+.news-page-list{
+  max-width:960px;
+  margin:0 auto;
+}
+.news-page-item{
+  display:flex;
+  align-items:center;
+  gap:28px;
+  padding:26px 16px;
+  border-bottom:1px solid var(--border-l);
+  transition:all var(--t);
+  cursor:pointer;
+  text-decoration:none;
+  color:inherit;
+}
+.news-page-item:first-child{
+  border-top:1px solid var(--border-l);
+}
+.news-page-item:hover{
+  padding-left:24px;
+  background:var(--g-pale);
+}
+.news-page-date{
+  font-family:'Plus Jakarta Sans',sans-serif;
+  font-size:20px;
+  font-weight:600;
+  color:var(--text-l);
+  letter-spacing:1px;
+  flex-shrink:0;
+  width:110px;
+  font-variant-numeric:tabular-nums;
+}
+.news-page-cat{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  font-size:17px;
+  font-weight:500;
+  letter-spacing:0.5px;
+  padding:4px 14px;
+  border-radius:20px;
+  flex-shrink:0;
+  white-space:nowrap;
+}
+.news-page-cat--notice{
+  background:rgba(107,143,113,0.08);
+  color:var(--g1);
+}
+.news-page-cat--press{
+  background:rgba(123,160,126,0.1);
+  color:var(--g3);
+}
+.news-page-title{
+  font-size:23px;
+  font-weight:400;
+  color:var(--text-b);
+  line-height:1.7;
+  transition:color var(--t);
+}
+.news-page-item:hover .news-page-title{
+  color:var(--g1);
+}
+.news-page-arrow{
+  margin-left:auto;
+  flex-shrink:0;
+  width:20px;
+  height:20px;
+  opacity:0;
+  transform:translateX(-8px);
+  transition:all var(--t);
+  color:var(--g1);
+}
+.news-page-item:hover .news-page-arrow{
+  opacity:1;
+  transform:translateX(0);
+}
+
+/* ── RESPONSIVE ── */
+@media(max-width:960px){
+  .news-page-item{
+    flex-wrap:wrap;
+    gap:10px 20px;
+    padding:22px 12px;
+  }
+  .news-page-item:hover{
+    padding-left:16px;
+  }
+}
+@media(max-width:768px){
+  .news-page-item{
+    flex-direction:column;
+    align-items:flex-start;
+    gap:8px;
+    padding:20px 8px;
+  }
+  .news-page-item:hover{
+    padding-left:12px;
+  }
+  .news-page-date{
+    width:auto;
+    font-size:18px;
+  }
+  .news-page-cat{
+    font-size:15px;
+    padding:3px 12px;
+  }
+  .news-page-title{
+    font-size:21px;
+  }
+  .news-page-arrow{
+    display:none;
+  }
+}
+</style>
+</head>
+<body>
+
+<div id="toast-popup" role="alert" aria-live="polite">
+  <div class="toast-icon"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></div>
+  <div><div class="toast-title">送信ありがとうございました</div><div class="toast-sub">担当者よりご連絡いたします。</div></div>
+  <div class="toast-bar"></div>
+</div>
+
+<div class="mobile-menu" id="mobile-menu">
+  <a href="../" data-page="home" onclick="closeMenu()">Home</a>
+  <a href="../service/" data-page="service" onclick="closeMenu()">Service</a>
+  <a href="../company/" data-page="company" onclick="closeMenu()">Company</a>
+  <a href="../news/" data-page="news" onclick="closeMenu()">News</a>
+  <a href="../contact/" class="m-contact" data-page="contact" onclick="closeMenu()">Contact</a>
+</div>
+
+<nav class="nav" id="main-nav">
+  <a href="../" class="nav-logo"><img src="../img/corporate_LOGO/Balcony_B1.png" alt="Balcony"></a>
+  <div class="nav-links">
+    <a href="../" data-page="home">HOME</a>
+    <a href="../service/" data-page="service">SERVICE</a>
+    <a href="../company/" data-page="company">COMPANY</a>
+    <a href="../news/" data-page="news">NEWS</a>
+    <a href="../contact/" class="nav-contact-btn" data-page="contact">CONTACT</a>
+  </div>
+  <button class="hamburger" id="hamburger" aria-label="メニュー"><span></span><span></span><span></span></button>
+</nav>
+
+<!-- PAGE HERO -->
+<section class="page-hero">
+  <div class="page-hero-bg" style="background-image:url('../img/contents/AdobeStock_207652668.jpeg')"></div>
+  <div class="page-hero-overlay"></div>
+  <div class="page-hero-content">
+    <div class="page-hero-tag">Information</div>
+    <h1 class="page-hero-title">News</h1>
+  </div>
+</section>
+
+<!-- NEWS LIST -->
+<section class="section news-page-section">
+  <div class="news-page-list" id="news-page-list">
+  </div>
+</section>
+
+<!-- CONTACT CTA -->
+<section class="contact-cta">
+  <div class="reveal"><div class="section-tag">Contact</div></div>
+  <h2 class="section-title reveal d1">お問い合わせはこちら</h2>
+  <p class="section-desc reveal d2">ご相談・ご質問はお気軽にお問い合わせください。</p>
+  <div class="contact-cta-btns reveal d3">
+    <a href="../contact/" class="btn-white">
+      お問い合わせフォーム
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+    <a href="../service/" class="btn-ghost-white">サービスを見る</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div>
+      <img src="../img/corporate_LOGO/Balcony_W1.png" alt="Balcony" class="footer-logo-img">
+      <div class="footer-tagline">新しい価値を定義する<br>Define New Value</div>
+    </div>
+    <div>
+      <div class="footer-col-h">Company</div>
+      <div class="footer-col-links">
+        <a href="../company/">About Company</a>
+      </div>
+    </div>
+    <div>
+      <div class="footer-col-h">Service</div>
+      <div class="footer-col-links">
+        <a href="../service/">Service Overview</a>
+        <a href="../security/">Security Diagnosis</a>
+      </div>
+    </div>
+    <div>
+      <div class="footer-col-h">Other</div>
+      <div class="footer-col-links">
+        <a href="../news/">News</a>
+        <a href="../contact/">Contact</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-copy">Copyright Balcony inc. ALL Rights Reserved.</div>
+  </div>
+</footer>
+
+<a href="../contact/" id="float-contact" class="float-contact">
+  お問い合わせ
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+</a>
+
+<script src="../js/news-data.js"></script>
+<script>
+(function() {
+  var list = document.getElementById('news-page-list');
+  if (!list || typeof NEWS_DATA === 'undefined') return;
+  var arrowSvg = '<svg class="news-page-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>';
+  NEWS_DATA.forEach(function(n, i) {
+    var a = document.createElement('a');
+    a.href = n.id + '.html';
+    a.className = 'news-page-item reveal' + (i > 0 && i <= 5 ? ' d' + i : '');
+    var dateDiv = document.createElement('div');
+    dateDiv.className = 'news-page-date';
+    dateDiv.textContent = n.date;
+    var catSpan = document.createElement('span');
+    catSpan.className = 'news-page-cat news-page-cat--' + n.category.replace(/[^a-zA-Z0-9-]/g, '');
+    catSpan.textContent = n.categoryLabel;
+    var titleDiv = document.createElement('div');
+    titleDiv.className = 'news-page-title';
+    titleDiv.textContent = n.title;
+    a.appendChild(dateDiv);
+    a.appendChild(catSpan);
+    a.appendChild(titleDiv);
+    // Arrow SVG (static, safe)
+    var temp = document.createElement('div');
+    temp.innerHTML = arrowSvg;
+    a.appendChild(temp.firstChild);
+    list.appendChild(a);
+  });
+})();
+</script>
+<script src="../js/main.js"></script>
+</body>
+</html>

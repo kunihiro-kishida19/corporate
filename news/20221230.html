@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Balcony合同会社ホームページを開設 | News | Balcony</title>
+<meta name="description" content="Balcony合同会社のホームページを開設いたしました。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+<div id="toast-popup" role="alert" aria-live="polite">
+  <div class="toast-icon"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></div>
+  <div><div class="toast-title">送信ありがとうございました</div><div class="toast-sub">担当者よりご連絡いたします。</div></div>
+  <div class="toast-bar"></div>
+</div>
+
+<div class="mobile-menu" id="mobile-menu">
+  <a href="../" data-page="home" onclick="closeMenu()">Home</a>
+  <a href="../service/" data-page="service" onclick="closeMenu()">Service</a>
+  <a href="../company/" data-page="company" onclick="closeMenu()">Company</a>
+  <a href="../news/" data-page="news" onclick="closeMenu()">News</a>
+  <a href="../contact/" class="m-contact" data-page="contact" onclick="closeMenu()">Contact</a>
+</div>
+
+<nav class="nav" id="main-nav">
+  <a href="../" class="nav-logo"><img src="../img/corporate_LOGO/Balcony_B1.png" alt="Balcony"></a>
+  <div class="nav-links">
+    <a href="../" data-page="home">HOME</a>
+    <a href="../service/" data-page="service">SERVICE</a>
+    <a href="../company/" data-page="company">COMPANY</a>
+    <a href="../news/" data-page="news">NEWS</a>
+    <a href="../contact/" class="nav-contact-btn" data-page="contact">CONTACT</a>
+  </div>
+  <button class="hamburger" id="hamburger" aria-label="メニュー"><span></span><span></span><span></span></button>
+</nav>
+
+<!-- PAGE HERO -->
+<section class="page-hero">
+  <div class="page-hero-bg" style="background-image:url('../img/contents/AdobeStock_207652668.jpeg')"></div>
+  <div class="page-hero-overlay"></div>
+  <div class="page-hero-content">
+    <div class="page-hero-tag">Information</div>
+    <h1 class="page-hero-title">News</h1>
+  </div>
+</section>
+
+<!-- ARTICLE -->
+<section class="section news-article-section">
+  <div class="news-article-inner">
+    <div class="news-article-meta reveal">
+      <div class="news-article-date">2022.12.30</div>
+      <span class="news-article-cat news-article-cat--notice">お知らせ</span>
+    </div>
+    <h2 class="news-article-title reveal d1">Balcony合同会社ホームページを開設</h2>
+    <div class="news-article-body reveal d2">
+      <p>Balcony合同会社のホームページを開設いたしました。</p>
+      <p>本ホームページでは、弊社のサービス内容や最新のニュースをお届けしてまいります。</p>
+      <p>今後とも、Balcony合同会社をよろしくお願い申し上げます。</p>
+    </div>
+    <a href="./" class="news-article-back reveal d3">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      News List
+    </a>
+  </div>
+</section>
+
+<!-- CONTACT CTA -->
+<section class="contact-cta">
+  <div class="reveal"><div class="section-tag">Contact</div></div>
+  <h2 class="section-title reveal d1">お問い合わせはこちら</h2>
+  <p class="section-desc reveal d2">ご相談・ご質問はお気軽にお問い合わせください。</p>
+  <div class="contact-cta-btns reveal d3">
+    <a href="../contact/" class="btn-white">
+      お問い合わせフォーム
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+    <a href="../service/" class="btn-ghost-white">サービスを見る</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div>
+      <img src="../img/corporate_LOGO/Balcony_W1.png" alt="Balcony" class="footer-logo-img">
+      <div class="footer-tagline">新しい価値を定義する<br>Define New Value</div>
+    </div>
+    <div>
+      <div class="footer-col-h">Company</div>
+      <div class="footer-col-links">
+        <a href="../company/">About Company</a>
+      </div>
+    </div>
+    <div>
+      <div class="footer-col-h">Service</div>
+      <div class="footer-col-links">
+        <a href="../service/">Service Overview</a>
+        <a href="../security/">Security Diagnosis</a>
+      </div>
+    </div>
+    <div>
+      <div class="footer-col-h">Other</div>
+      <div class="footer-col-links">
+        <a href="../news/">News</a>
+        <a href="../contact/">Contact</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-copy">Copyright Balcony inc. ALL Rights Reserved.</div>
+  </div>
+</footer>
+
+<a href="../contact/" id="float-contact" class="float-contact">
+  お問い合わせ
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+</a>
+
+<script src="../js/main.js"></script>
+</body>
+</html>
