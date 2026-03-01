@@ -86,6 +86,21 @@
 .svc-detail-tag:hover{background:var(--g-pale);border-color:var(--g2);color:var(--g1)}
 .svc-detail-tag svg{width:14px;height:14px;stroke:var(--g2);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
 
+/* ── SERVICE SUMMARY TABLE ── */
+.svc-summary{background:var(--bg)}
+.svc-summary-inner{max-width:960px;margin:0 auto}
+.svc-summary-table{width:100%;border-collapse:collapse;margin-top:40px}
+.svc-summary-table thead th{background:var(--g1);color:white;font-size:17px;font-weight:700;letter-spacing:0.5px;padding:16px 20px;text-align:left}
+.svc-summary-table thead th:first-child{border-radius:8px 0 0 0}
+.svc-summary-table thead th:last-child{border-radius:0 8px 0 0}
+.svc-summary-table tbody td{padding:18px 20px;font-size:20px;line-height:1.8;color:var(--text-m);border-bottom:1px solid var(--border-l);vertical-align:top}
+.svc-summary-table tbody tr:hover{background:var(--g-pale)}
+.svc-summary-table tbody td:first-child{font-weight:700;color:var(--text);white-space:nowrap}
+@media(max-width:768px){
+  .svc-summary-table{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .svc-summary-table thead th,.svc-summary-table tbody td{font-size:18px;padding:14px 16px;min-width:140px}
+}
+
 /* ── SERVICE APPROACH ── */
 .svc-approach{background:var(--white)}
 .svc-approach-inner{max-width:960px;margin:0 auto}
@@ -174,6 +189,43 @@
     <h2 class="section-title reveal d1">価値創造を支える<br>3つの領域</h2>
     <span class="divider reveal d2" style="margin-left:auto;margin-right:auto"></span>
     <p class="section-desc reveal d3">Balconyは、コンサルティング・テクノロジー・ITマネジメントの3つの専門領域を通じて、お客様のビジネスにおける新たな価値の定義と創造を支援します。戦略立案から技術実装、プロジェクト推進まで、一気通貫でサポートいたします。</p>
+  </div>
+</section>
+
+<!-- SERVICE SUMMARY TABLE -->
+<section class="section svc-summary">
+  <div class="svc-summary-inner">
+    <div style="text-align:center">
+      <div class="reveal"><div class="section-tag" style="justify-content:center">Service Overview</div></div>
+      <h2 class="section-title reveal d1">サービス一覧</h2>
+      <span class="divider reveal d2" style="margin-left:auto;margin-right:auto"></span>
+    </div>
+    <table class="svc-summary-table reveal d3">
+      <thead>
+        <tr>
+          <th>サービス</th>
+          <th>概要</th>
+          <th>対応領域</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>コンサルティング</td>
+          <td>新規事業の立ち上げからマーケティング戦略の策定、M&amp;Aにおけるデューデリジェンスまで、ビジネスの成長を多角的に支援</td>
+          <td>新規事業開発、マーケティング戦略、M&amp;A</td>
+        </tr>
+        <tr>
+          <td>テクノロジー</td>
+          <td>生成AIの活用からシステム開発、BPaaSの構築、セキュリティ脆弱性診断まで、最新技術でビジネス課題を解決</td>
+          <td>生成AI、システム開発、BPaaS、脆弱性診断</td>
+        </tr>
+        <tr>
+          <td>ITマネジメント</td>
+          <td>プロダクトマネジメントからプロジェクトマネジメント、PMOの運営まで、ITプロジェクトの成功に欠かせないマネジメント支援</td>
+          <td>プロダクトマネジメント、PM・PMO</td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </section>
 
