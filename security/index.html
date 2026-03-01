@@ -71,24 +71,8 @@
 }
 </script>
 <style>
-/* ── DIAGNOSTIC COMPARISON TABLE ── */
-.diag-table-section{padding:80px 64px;background:#0d1a10}
-.diag-table-inner{max-width:1080px;margin:0 auto}
-.diag-table-section .section-label{color:rgba(255,255,255,0.45)}
-.diag-table-section .section-label::before{background:rgba(255,255,255,0.25)}
-.diag-table-section .section-title{color:white}
-.diag-table{width:100%;border-collapse:collapse;margin-top:40px}
-.diag-table thead th{background:var(--c1,#86efac);color:#0d1a10;font-size:14px;font-weight:700;letter-spacing:0.5px;padding:14px 18px;text-align:left}
-.diag-table thead th:first-child{border-radius:8px 0 0 0}
-.diag-table thead th:last-child{border-radius:0 8px 0 0}
-.diag-table tbody td{padding:16px 18px;font-size:15px;line-height:1.8;color:rgba(255,255,255,0.75);border-bottom:1px solid rgba(255,255,255,0.08);vertical-align:top}
-.diag-table tbody tr:hover{background:rgba(255,255,255,0.03)}
-.diag-table tbody td:first-child{font-weight:700;color:rgba(255,255,255,0.95);white-space:nowrap}
-@media(max-width:768px){
-  .diag-table-section{padding:56px 20px}
-  .diag-table{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch}
-  .diag-table thead th,.diag-table tbody td{font-size:13px;padding:12px 14px;min-width:120px}
-}
+/* ── DIAGNOSTIC COMPARISON TABLE (sr-only: SEO/accessibility, visually hidden) ── */
+.diag-table-sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
 </style>
 </head>
 <body>
@@ -395,49 +379,21 @@
   </div>
 </section>
 
-<!-- DIAGNOSTIC COMPARISON TABLE -->
-<section class="diag-table-section">
-  <div class="diag-table-inner">
-    <div class="reveal"><div class="section-label">Comparison</div></div>
-    <h2 class="section-title reveal d1" style="color:white">診断サービス<span class="ta">比較</span></h2>
-    <table class="diag-table reveal d2">
-      <thead>
-        <tr>
-          <th>診断サービス</th>
-          <th>対象</th>
-          <th>主な診断項目</th>
-          <th>準拠規格</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>Webアプリ診断</td>
-          <td>Webサイト全体</td>
-          <td>認証・セッション管理、XSS、SQLi、CSRF、IDOR、業務ロジック</td>
-          <td>OWASP WSTG / ASVS</td>
-        </tr>
-        <tr>
-          <td>API診断</td>
-          <td>APIエンドポイント</td>
-          <td>BOLA、BFLA、Mass Assignment、SSRF、レート制御、エラー情報露出</td>
-          <td>OWASP API Security Top 10</td>
-        </tr>
-        <tr>
-          <td>クラウド診断</td>
-          <td>AWS / GCP / Azure</td>
-          <td>CISベンチマーク、設定監査、認証情報探索、ストレージ悪用</td>
-          <td>CIS Benchmarks</td>
-        </tr>
-        <tr>
-          <td>プラットフォーム診断</td>
-          <td>サーバー・ネットワーク</td>
-          <td>ポートスキャン、DNS、メールサーバー、FW設定、既知脆弱性</td>
-          <td>OWASP Top 10</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-</section>
+<!-- DIAGNOSTIC COMPARISON TABLE (visually hidden, SEO/accessibility only) -->
+<div class="diag-table-sr" aria-hidden="false">
+  <table>
+    <caption>Balcony セキュリティ脆弱性診断サービス比較</caption>
+    <thead>
+      <tr><th>診断サービス</th><th>対象</th><th>主な診断項目</th><th>準拠規格</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Webアプリ診断</td><td>Webサイト全体</td><td>認証・セッション管理、XSS、SQLi、CSRF、IDOR、業務ロジック</td><td>OWASP WSTG / ASVS</td></tr>
+      <tr><td>API診断</td><td>APIエンドポイント</td><td>BOLA、BFLA、Mass Assignment、SSRF、レート制御、エラー情報露出</td><td>OWASP API Security Top 10</td></tr>
+      <tr><td>クラウド診断</td><td>AWS / GCP / Azure</td><td>CISベンチマーク、設定監査、認証情報探索、ストレージ悪用</td><td>CIS Benchmarks</td></tr>
+      <tr><td>プラットフォーム診断</td><td>サーバー・ネットワーク</td><td>ポートスキャン、DNS、メールサーバー、FW設定、既知脆弱性</td><td>OWASP Top 10</td></tr>
+    </tbody>
+  </table>
+</div>
 
 <!-- AI SECTION -->
 <section class="ai-section" id="ai">
