@@ -4,6 +4,14 @@
 
 var BLOG_DATA = [
   {
+    id: 'dx-transformation-reality',
+    date: '2026.03.02',
+    category: 'dx',
+    categoryLabel: 'DX・経営',
+    title: 'ChatGPTを入れたのにDXが進まない──CXOが問うべき「変革の本質」',
+    summary: 'SaaS導入や生成AI活用が"手段の目的化"に陥る構造的原因を調査データで検証。CXOが問うべき3つの問いと、本質的DXへの転換策を解説します。'
+  },
+  {
     id: 'vulnerability-assessment-guide',
     date: '2026.03.01',
     category: 'security',
