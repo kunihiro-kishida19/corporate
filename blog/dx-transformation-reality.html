@@ -108,13 +108,25 @@
 .blog-references a{color:var(--g1);text-decoration:underline;text-underline-offset:2px}
 .blog-references a:hover{color:var(--g2)}
 @media(max-width:768px){
-  .blog-article h1{font-size:26px}
-  .blog-article h2{font-size:24px}
-  .blog-article p,.blog-article ul,.blog-article ol{font-size:19px}
+  .blog-article{max-width:100%}
+  .blog-article h1{font-size:24px;line-height:1.6}
+  .blog-article h2{font-size:21px;margin:40px 0 16px}
+  .blog-article h3{font-size:19px;margin:28px 0 12px}
+  .blog-article p,.blog-article ul,.blog-article ol{font-size:17px;line-height:2}
+  .blog-article-lead{font-size:17px;padding:18px;margin-bottom:36px}
+  .blog-article-lead p{font-size:17px!important}
+  .blog-article-lead ul{font-size:16px!important;line-height:1.9!important}
   .blog-article table{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch}
-  .blog-article thead th,.blog-article tbody td{font-size:16px;padding:10px 12px;min-width:100px}
+  .blog-article thead th,.blog-article tbody td{font-size:15px;padding:10px 12px;min-width:90px}
+  .blog-cta-box{padding:24px 20px}
+  .blog-cta-box p{font-size:17px}
+  .blog-faq-q{font-size:17px}
+  .blog-faq-a{font-size:16px}
+  .blog-references{font-size:13px}
   .blog-highlight-num{font-size:24px}
+  .sp-br{display:inline}
 }
+.sp-br{display:none}
 </style>
 </head>
 <body>
@@ -165,10 +177,16 @@
       <span class="blog-article-date">2026.03.02</span>
       <span class="blog-article-cat">DX・経営</span>
     </div>
-    <h1>ChatGPTを入れたのにDXが進まない──CXOが問うべき「変革の本質」</h1>
+    <h1>ChatGPTを入れたのにDXが進まない──<br>CXOが問うべき「変革の本質」</h1>
 
     <div class="blog-article-lead">
-      <strong>この記事のまとめ：</strong>日本企業のDX取組率は約80%と先進国並みだが、成果を実感している企業は米独の80%超に対し日本は57.8%（IPA調査）。PwCの厳格な定義では「十分な成果」はわずか約9%にとどまる。SaaS導入や生成AI活用が"手段の目的化"に陥る3つの構造的原因と、CXOが問うべき本質的な問いを、国内外の調査データとともに解説します。
+      <p style="font-size:20px;font-weight:700;color:var(--g1);margin-bottom:12px;">1分でわかるサマリ</p>
+      <ul style="font-size:19px;color:var(--text-m);line-height:2;margin:0 0 0 20px;">
+        <li>日本のDX取組率は米国並みの約80%。しかし成果KPIを設定している企業は30%未満（米独は80%超）</li>
+        <li>原因は「ツール導入」で止まり「業務プロセスの再設計」に踏み込めていないこと</li>
+        <li><strong>BPR（業務再設計）→ 価値構想（何で差別化するか）→ ジャーニー・UX（顧客体験）</strong>の3段階を接続することが鍵</li>
+        <li>この接続を率いるリーダーに部門を越える権限を持たせ、生成AIで検証サイクルを速く回す</li>
+      </ul>
     </div>
 
     <!-- ───── 1. DX投資は増えているが成果が出ない ───── -->
@@ -348,7 +366,7 @@
 
     <!-- ───── CTA ───── -->
     <div class="blog-cta-box">
-      <p><strong>Balcony合同会社</strong>は、DX戦略策定から生成AIの活用設計、セキュリティ対策まで一貫して支援しています。<br>「ツール導入の先」にある本質的な変革をご一緒に。まずはお気軽にご相談ください。</p>
+      <p><strong>Balcony合同会社</strong>は、BPRの設計から生成AIの活用、体験設計まで<br>「ツール導入の先」にある本質的な変革を支援しています。<br>まずはお気軽にご相談ください。</p>
       <a href="../service/" class="btn-green">
         サービスの詳細を見る
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
