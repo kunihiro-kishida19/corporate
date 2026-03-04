@@ -77,6 +77,7 @@ python scripts/generate_ogp.py
 ### 必須チェック項目
 - `og:image` と `twitter:image` に **`/img/ogp/[slug].png`** を指定（ロゴではなくバナー画像）
 - `og:image:width` = `1200`, `og:image:height` = `630` を必ず含める
+- `og:description` / `twitter:description` は **100文字以上**（LinkedIn要件）
 - URL は `https://balcony.co.jp/` で始まる絶対URL
 
 ---
