@@ -4,6 +4,14 @@
 
 var BLOG_DATA = [
   {
+    id: 'ai-governance-balance',
+    date: '2026.03.04',
+    category: 'ai',
+    categoryLabel: 'AI',
+    title: '生成AI時代の企業情報ガバナンス：「守り」と「攻め」のバランスをどう設計するか',
+    summary: '2026年2月の米国防総省事件を題材に、AIベンダーの倫理的姿勢が選定基準になりつつある現状と、守りと攻めのバランス設計の実務的アプローチを解説します。'
+  },
+  {
     id: 'dx-transformation-reality',
     date: '2026.03.02',
     category: 'dx',
