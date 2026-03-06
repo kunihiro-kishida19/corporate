@@ -1,0 +1,8 @@
+{
+  "recommendations": [
+    "ritwickdey.LiveServer",
+    "ecmel.vscode-html-css",
+    "yzhang.markdown-all-in-one",
+    "DavidAnson.vscode-markdownlint"
+  ]
+}

@@ -1,5 +1,7 @@
 # Balcony コーポレートサイト 共通ルール
 
+> **正式な設計ドキュメントは [docs/](docs/README.md) に移行しました。** 本ファイルは参照用として残しています。
+
 サイト全体に適用される方針・技術仕様・ブランドガイド。
 ページ別のルールは [PAGE_RULES.md](PAGE_RULES.md)、ブログ記事の執筆ルールは [blog/BLOG_RULES.md](blog/BLOG_RULES.md) を参照。
 
