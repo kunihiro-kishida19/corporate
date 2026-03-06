@@ -61,22 +61,18 @@ LinkedIn / X (Twitter) / Facebook でバナー表示されるために必要。
 | ファイルサイズ | 300KB以下推奨 |
 | 保存先 | `/img/ogp/[slug].png` |
 
+### デザイン仕様
+
+白背景に Balcony ロゴ（`/img/corporate_LOGO/Balcony_B1.png`）を中央配置。記事タイトルは画像に含めない（SNSプラットフォームが `og:title` から自動表示する）。
+
 ### 生成方法
 
 ```bash
 cd corporate
-python scripts/generate_ogp.py
+python tools/gen_ogp.py
 ```
 
-新しい記事を追加する際は `scripts/generate_ogp.py` の `ARTICLES` 配列に追記してから実行する。
-
-```python
-{
-    'id': 'new-article-slug',
-    'category': 'カテゴリ名',
-    'title': 'タイトル\n改行位置を\n指定する',
-}
-```
+新しい記事を追加する際は `tools/gen_ogp.py` の `ARTICLES` 配列にslugを追記してから実行する。
 
 ---
 
