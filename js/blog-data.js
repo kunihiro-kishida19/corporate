@@ -4,6 +4,14 @@
 
 var BLOG_DATA = [
   {
+    id: 'security-comprehensive-guide',
+    date: '2026.03.07',
+    category: 'security',
+    categoryLabel: 'セキュリティ',
+    title: 'サイバー攻撃は"いつ来るか"の問題——経営層が知るべきセキュリティ対策の全体像と優先順位',
+    summary: 'KADOKAWA・アスクル・アサヒグループの被害事例とOWASP Top 10 2025を踏まえ、経営層が押さえるべきセキュリティ対策を9つのドメインで整理。テクノロジーマップとフェーズ別ロードマップで解説。'
+  },
+  {
     id: 'ai-governance-balance',
     date: '2026.03.04',
     category: 'ai',
