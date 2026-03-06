@@ -9,14 +9,14 @@
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com; img-src 'self' data:; connect-src 'self' https://formspree.io https://www.googletagmanager.com https://www.google-analytics.com https://*.google-analytics.com;">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>サイバー攻撃は"いつ来るか"の問題——経営層が知るべきセキュリティ対策の全体像と優先順位 | Balcony合同会社</title>
-<meta name="description" content="KADOKAWA・アスクル・アサヒグループの被害事例とOWASP Top 10 2025を踏まえ、経営層が押さえるべきセキュリティ対策の9レイヤー28項目を優先度マトリクスとフェーズ別ロードマップで解説。">
+<meta name="description" content="KADOKAWA・アスクル・アサヒグループの被害事例とOWASP Top 10 2025を踏まえ、経営層が押さえるべきセキュリティ対策を9つのドメインで整理。テクノロジーマップとフェーズ別ロードマップで解説。">
 <meta name="author" content="Balcony合同会社">
 <link rel="canonical" href="https://balcony.co.jp/blog/security-comprehensive-guide.html">
 <!-- OGP -->
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="Balcony合同会社">
 <meta property="og:title" content="サイバー攻撃は"いつ来るか"の問題——経営層が知るべきセキュリティ対策の全体像と優先順位">
-<meta property="og:description" content="KADOKAWA・アスクル・アサヒグループの被害事例とOWASP Top 10 2025を踏まえ、経営層が押さえるべきセキュリティ対策の9レイヤー28項目を優先度マトリクスとフェーズ別ロードマップで解説。">
+<meta property="og:description" content="KADOKAWA・アスクル・アサヒグループの被害事例とOWASP Top 10 2025を踏まえ、経営層が押さえるべきセキュリティ対策を9つのドメインで整理。テクノロジーマップとフェーズ別ロードマップで解説。">
 <meta property="og:url" content="https://balcony.co.jp/blog/security-comprehensive-guide.html">
 <meta property="og:image" content="https://balcony.co.jp/img/ogp/security-comprehensive-guide.png">
 <meta property="og:image:width" content="1200">
@@ -26,7 +26,7 @@
 <!-- Twitter Card -->
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="サイバー攻撃は"いつ来るか"の問題——経営層が知るべきセキュリティ対策の全体像と優先順位">
-<meta name="twitter:description" content="KADOKAWA・アスクル・アサヒグループの被害事例とOWASP Top 10 2025を踏まえ、経営層が押さえるべきセキュリティ対策の9レイヤー28項目を優先度マトリクスとフェーズ別ロードマップで解説。">
+<meta name="twitter:description" content="KADOKAWA・アスクル・アサヒグループの被害事例とOWASP Top 10 2025を踏まえ、経営層が押さえるべきセキュリティ対策を9つのドメインで整理。テクノロジーマップとフェーズ別ロードマップで解説。">
 <meta name="twitter:image" content="https://balcony.co.jp/img/ogp/security-comprehensive-guide.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -42,7 +42,7 @@
       "headline": "サイバー攻撃は"いつ来るか"の問題——経営層が知るべきセキュリティ対策の全体像と優先順位",
       "datePublished": "2026-03-07",
       "dateModified": "2026-03-07",
-      "description": "KADOKAWA・アスクル・アサヒグループの被害事例とOWASP Top 10 2025を踏まえ、経営層が押さえるべきセキュリティ対策の9レイヤー28項目を優先度マトリクスとフェーズ別ロードマップで解説。",
+      "description": "KADOKAWA・アスクル・アサヒグループの被害事例とOWASP Top 10 2025を踏まえ、経営層が押さえるべきセキュリティ対策を9つのドメインで整理。テクノロジーマップとフェーズ別ロードマップで解説。",
       "url": "https://balcony.co.jp/blog/security-comprehensive-guide.html",
       "author": {"@type": "Organization", "name": "Balcony合同会社", "@id": "https://balcony.co.jp/#organization"},
       "publisher": {"@id": "https://balcony.co.jp/#organization"},
@@ -53,9 +53,8 @@
       "@type": "FAQPage",
       "mainEntity": [
         {"@type": "Question", "name": "セキュリティ対策にいくら投資すべきですか？", "acceptedAnswer": {"@type": "Answer", "text": "一般的にIT予算の10〜15%が目安とされますが、業種やリスクプロファイルによって大きく異なります。まず現状のリスクアセスメントを行い、優先度の高い施策から段階的に投資するアプローチが現実的です。"}},
-        {"@type": "Question", "name": "中小企業でも同じ対策が必要ですか？", "acceptedAnswer": {"@type": "Answer", "text": "全28項目を同時に導入する必要はありません。MFA・EDR・バックアップの「最優先3点セット」から着手し、段階的に拡張するアプローチが有効です。サプライチェーン攻撃の標的になるリスクは企業規模を問いません。"}},
+        {"@type": "Question", "name": "中小企業でも同じ対策が必要ですか？", "acceptedAnswer": {"@type": "Answer", "text": "9つのドメインすべてを同時にカバーする必要はありません。まずはセキュリティマップで自社の対策状況を可視化し、MFA・EDR・バックアップなど即効性の高い施策から着手するのが有効です。サプライチェーン攻撃の標的になるリスクは企業規模を問いません。"}},
         {"@type": "Question", "name": "ゼロトラストは今すぐ導入すべきですか？", "acceptedAnswer": {"@type": "Answer", "text": "完全なゼロトラストは中長期的な移行プロジェクトです。まずVPN脆弱性対応とネットワークセグメンテーションで境界防御を強化し、段階的にゼロトラストアーキテクチャへ移行するのが現実的です。"}},
-        {"@type": "Question", "name": "SCS評価制度への対応はいつから始めるべきですか？", "acceptedAnswer": {"@type": "Answer", "text": "制度の運用開始はFY2026末を目指していますが、自社のセキュリティ対策レベルの棚卸しは今から始められます。星3以上を目指すなら外部評価の準備期間も考慮が必要です。"}},
         {"@type": "Question", "name": "セキュリティ対策の効果をどう経営層に説明すべきですか？", "acceptedAnswer": {"@type": "Answer", "text": "事業停止期間×日次売上のインパクト試算や、同業他社のインシデント事例をベースに、「対策コスト vs 被害コスト」のフレームワークで説明するのが効果的です。"}}
       ]
     },
@@ -107,9 +106,6 @@
 .blog-ref li{margin-bottom:4px}
 .blog-ref a{color:var(--g1);text-decoration:underline}
 .blog-ref a:hover{color:var(--g2)}
-.priority-high{background:#FEF2F2;color:#991B1B;font-weight:700;padding:2px 8px;border-radius:4px;font-size:14px}
-.priority-mid{background:#FFF7ED;color:#9A3412;font-weight:700;padding:2px 8px;border-radius:4px;font-size:14px}
-.priority-low{background:#F0FDF4;color:#166534;font-weight:700;padding:2px 8px;border-radius:4px;font-size:14px}
 @media(max-width:768px){
   .blog-article{max-width:100%}
   .blog-article h1{font-size:24px;line-height:1.6}
@@ -185,7 +181,7 @@
         <li>2025年のセキュリティインシデント公表件数は<strong>559件</strong>（トレンドマイクロ調べ）。KADOKAWA・アスクル・アサヒグループなど大企業の被害が相次いだ</li>
         <li>侵入経路の<strong>80%超がVPN・RDP</strong>経由。境界防御の見直しが急務</li>
         <li>OWASP Top 10が2025年に改訂され、サプライチェーン脆弱性（A03）が新設された</li>
-        <li>対策は9つのレイヤー・28項目に整理でき、<strong>優先度3段階</strong>で段階的に着手可能</li>
+        <li>対策は<strong>9つのドメイン</strong>で整理でき、フェーズ別に段階的に着手可能</li>
         <li>経済産業省のSCS評価制度がFY2026末の運用開始を目指しており、サプライチェーン全体での対策が求められつつある</li>
       </ul>
     </div>
@@ -361,157 +357,148 @@
     <p>A03に「Software Supply Chain Failures」が新設されたことは、2021年のSolarWinds事件やLog4Shell脆弱性を経て、ソフトウェアサプライチェーン全体のセキュリティが業界共通の課題として認識されたことを意味しています。自社が開発したコードだけでなく、利用しているOSSやサードパーティのライブラリも含めた管理が求められています。</p>
     <p>なお、2021年版でA10だったSSRF（Server-Side Request Forgery）はA01に統合されています。</p>
 
-    <!-- ───── H2⑤ 対策の全体像 ───── -->
-    <h2>対策の全体像——9つのレイヤーで考える</h2>
+    <!-- ───── H2⑤ 対策の全体像——9ドメイン ───── -->
+    <h2>対策の全体像——9つのドメインで考えるセキュリティマップ</h2>
 
-    <p>セキュリティ対策は範囲が広く、どこから手をつければよいか迷いがちです。ここでは対策を<strong>9つのレイヤー</strong>に整理して全体像を俯瞰します。</p>
-
-    <table>
-      <thead>
-        <tr>
-          <th>レイヤー</th>
-          <th>概要</th>
-          <th>代表的な対策例</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td><strong>① ガバナンス・体制</strong></td>
-          <td>経営層の関与、CISO設置、ポリシー策定</td>
-          <td>セキュリティポリシー、インシデント対応計画</td>
-        </tr>
-        <tr>
-          <td><strong>② 資産管理・可視化</strong></td>
-          <td>IT資産の把握、シャドーIT対策</td>
-          <td>資産台帳、SaaS利用状況の可視化</td>
-        </tr>
-        <tr>
-          <td><strong>③ ネットワーク防御</strong></td>
-          <td>境界防御、セグメンテーション</td>
-          <td>FW、IDS/IPS、VPN脆弱性対応</td>
-        </tr>
-        <tr>
-          <td><strong>④ エンドポイント防御</strong></td>
-          <td>端末レベルの検知・対応</td>
-          <td>EDR、MFA、端末暗号化</td>
-        </tr>
-        <tr>
-          <td><strong>⑤ データ保護</strong></td>
-          <td>情報分類、暗号化、バックアップ</td>
-          <td>3-2-1バックアップ、DLP</td>
-        </tr>
-        <tr>
-          <td><strong>⑥ 認証・アクセス制御</strong></td>
-          <td>ゼロトラスト、ID管理</td>
-          <td>IAM、特権アカウント管理、SSO</td>
-        </tr>
-        <tr>
-          <td><strong>⑦ 監視・検知・対応</strong></td>
-          <td>リアルタイム監視、インシデント対応</td>
-          <td>SIEM、SOC、インシデント対応訓練</td>
-        </tr>
-        <tr>
-          <td><strong>⑧ 人的セキュリティ</strong></td>
-          <td>教育、訓練、内部脅威対策</td>
-          <td>フィッシング訓練、セキュリティ研修</td>
-        </tr>
-        <tr>
-          <td><strong>⑨ 開発・サプライチェーン</strong></td>
-          <td>セキュアな開発プロセス、委託先管理</td>
-          <td>DevSecOps、脆弱性診断、SBOM管理</td>
-        </tr>
-      </tbody>
-    </table>
-
-    <p>重要なのは、これらのレイヤーは独立しているわけではなく、相互に補完し合っている点です。たとえばエンドポイント防御（④）が機能していても、ネットワーク防御（③）が甘ければ内部ネットワークで横移動されるリスクがあります。全体をバランスよく整備していくことが大切です。</p>
-
-    <!-- ───── H2⑥ 優先度マトリクス ───── -->
-    <h2>優先度マトリクス——全28項目の一覧</h2>
-
-    <p>9つのレイヤーをさらに具体化すると28の対策項目になります。すべてを同時に実施するのは現実的ではないため、<strong>3段階の優先度</strong>で整理しました。</p>
+    <p>セキュリティ対策は範囲が広く、どこから手をつければよいか迷いがちです。従来は「境界防御」「エンドポイント」といった制御の種類で分類するのが一般的でしたが、経営層にとっては<strong>「何を守るか」</strong>——つまり資産を軸に整理するほうが直感的ではないでしょうか。ここでは対策を<strong>9つのドメイン</strong>に分類した「セキュリティマップ」で全体像を俯瞰し、手薄な領域を可視化します。</p>
 
     <table>
       <thead>
         <tr>
-          <th>レイヤー</th>
-          <th>対策項目</th>
-          <th>優先度</th>
+          <th>ドメイン</th>
+          <th>何を守るか</th>
+          <th>代表的テクノロジー</th>
         </tr>
       </thead>
       <tbody>
-        <tr><td rowspan="3"><strong>① ガバナンス</strong></td><td>セキュリティポリシー策定・更新</td><td><span class="priority-high">最優先</span></td></tr>
-        <tr><td>CISO/責任者の任命</td><td><span class="priority-high">最優先</span></td></tr>
-        <tr><td>インシデント対応計画の策定・訓練</td><td><span class="priority-high">最優先</span></td></tr>
-
-        <tr><td rowspan="3"><strong>② 資産管理</strong></td><td>IT資産台帳の整備</td><td><span class="priority-mid">推奨</span></td></tr>
-        <tr><td>シャドーIT・SaaS利用の把握</td><td><span class="priority-mid">推奨</span></td></tr>
-        <tr><td>脆弱性管理プロセスの導入</td><td><span class="priority-high">最優先</span></td></tr>
-
-        <tr><td rowspan="3"><strong>③ ネットワーク</strong></td><td>FW・IDS/IPSの最適化</td><td><span class="priority-high">最優先</span></td></tr>
-        <tr><td>VPN脆弱性の緊急対応</td><td><span class="priority-high">最優先</span></td></tr>
-        <tr><td>ネットワークセグメンテーション</td><td><span class="priority-mid">推奨</span></td></tr>
-
-        <tr><td rowspan="3"><strong>④ エンドポイント</strong></td><td>EDR導入・運用</td><td><span class="priority-high">最優先</span></td></tr>
-        <tr><td>OS・ソフトウェアのパッチ管理</td><td><span class="priority-high">最優先</span></td></tr>
-        <tr><td>端末暗号化</td><td><span class="priority-mid">推奨</span></td></tr>
-
-        <tr><td rowspan="3"><strong>⑤ データ保護</strong></td><td>3-2-1バックアップルール</td><td><span class="priority-high">最優先</span></td></tr>
-        <tr><td>情報分類と取り扱い基準の策定</td><td><span class="priority-mid">推奨</span></td></tr>
-        <tr><td>DLP（情報漏洩防止）の導入</td><td><span class="priority-low">中長期</span></td></tr>
-
-        <tr><td rowspan="4"><strong>⑥ 認証・アクセス</strong></td><td>MFA（多要素認証）の全社展開</td><td><span class="priority-high">最優先</span></td></tr>
-        <tr><td>特権アカウント管理</td><td><span class="priority-high">最優先</span></td></tr>
-        <tr><td>SSO/IDaaS導入</td><td><span class="priority-mid">推奨</span></td></tr>
-        <tr><td>ゼロトラストアーキテクチャ移行</td><td><span class="priority-low">中長期</span></td></tr>
-
-        <tr><td rowspan="3"><strong>⑦ 監視・検知</strong></td><td>ログ管理基盤の整備</td><td><span class="priority-mid">推奨</span></td></tr>
-        <tr><td>SIEM導入またはSOCサービス利用</td><td><span class="priority-mid">推奨</span></td></tr>
-        <tr><td>24時間監視体制の構築</td><td><span class="priority-low">中長期</span></td></tr>
-
-        <tr><td rowspan="3"><strong>⑧ 人的セキュリティ</strong></td><td>全社員向けセキュリティ研修</td><td><span class="priority-high">最優先</span></td></tr>
-        <tr><td>フィッシングメール訓練</td><td><span class="priority-high">最優先</span></td></tr>
-        <tr><td>内部脅威対策</td><td><span class="priority-low">中長期</span></td></tr>
-
-        <tr><td rowspan="3"><strong>⑨ 開発・SC</strong></td><td>脆弱性診断の定期実施</td><td><span class="priority-high">最優先</span></td></tr>
-        <tr><td>委託先のセキュリティ基準策定</td><td><span class="priority-mid">推奨</span></td></tr>
-        <tr><td>SBOM管理・DevSecOps導入</td><td><span class="priority-low">中長期</span></td></tr>
+        <tr>
+          <td><strong>端末・サーバー</strong></td>
+          <td>PC・モバイル・サーバー</td>
+          <td>EPP → EDR → UEM / MTD</td>
+        </tr>
+        <tr>
+          <td><strong>ネットワーク</strong></td>
+          <td>通信経路・境界</td>
+          <td>NGFW / SASE・SSE（SWG, ZTNA, FWaaS, CASB）</td>
+        </tr>
+        <tr>
+          <td><strong>ID管理</strong></td>
+          <td>ユーザーID・特権アカウント</td>
+          <td>IDaaS / PAM / ITDR / IGA</td>
+        </tr>
+        <tr>
+          <td><strong>パブリッククラウド</strong></td>
+          <td>IaaS/PaaS上の資産</td>
+          <td>CNAPP（CWPP, CSPM, CIEM, KSPM）</td>
+        </tr>
+        <tr>
+          <td><strong>ログ・監視</strong></td>
+          <td>検知・対応能力</td>
+          <td>SIEM / SOAR / XDR / SOC</td>
+        </tr>
+        <tr>
+          <td><strong>人</strong></td>
+          <td>従業員のリテラシー</td>
+          <td>Security Awareness / フィッシング訓練</td>
+        </tr>
+        <tr>
+          <td><strong>公開資産・攻撃面管理</strong></td>
+          <td>Webサイト・API・外部公開資産</td>
+          <td>WAF・WAAP / SAST・DAST / SCA / EASM・ASM</td>
+        </tr>
+        <tr>
+          <td><strong>IoT・OT</strong></td>
+          <td>制御系・IoTデバイス</td>
+          <td>OTセキュリティ / ネットワーク分離</td>
+        </tr>
+        <tr>
+          <td><strong>AI</strong></td>
+          <td>AIモデル・学習データ</td>
+          <td>Model Scan / AI SPM / LLM Firewall</td>
+        </tr>
       </tbody>
     </table>
 
-    <p><span class="priority-high">最優先</span>は15項目、<span class="priority-mid">推奨</span>は8項目、<span class="priority-low">中長期</span>は5項目です。まずは「最優先」から着手し、段階的に拡張していくアプローチが現実的です。</p>
+    <p>各ドメインで押さえておきたいポイントを順に見ていきます。</p>
+
+    <h3>端末・サーバー——EPP/EDR/UEM（EDRだけでは万全ではない）</h3>
+    <p><strong>EPP</strong>（Endpoint Protection Platform）はマルウェアの侵入を防ぐ防御基盤、<strong>EDR</strong>（Endpoint Detection and Response）は侵入後の検知・対応を担う仕組みです。最近はEDRの導入が進んでいますが、<strong>EDRを入れれば安心というわけではありません</strong>。アラートを受けて対処する運用体制がなければ、検知しても被害を防げないケースがあります。</p>
+    <p>さらに、スマートフォンやタブレットの業務利用が増える中、<strong>UEM</strong>（Unified Endpoint Management）でPC・モバイルを一元管理する動きや、モバイル端末に特化した<strong>MTD</strong>（Mobile Threat Defense）の導入も広がっています。</p>
+
+    <h3>ネットワーク——NGFW/SASE/SSE（侵入口対策の最前線）</h3>
+    <p>前述の通り、ランサムウェアの侵入経路の80%超はVPN・RDP経由です。ネットワーク機器の脆弱性対応と攻撃面の削減は、特に即効性の高い施策です。</p>
+    <p><strong>NGFW</strong>（Next-Generation Firewall）はアプリケーションレベルの制御を行う次世代ファイアウォール。<strong>SASE</strong>（Secure Access Service Edge）は、ネットワークとセキュリティをクラウドで統合するアーキテクチャで、<strong>SWG</strong>（Web通信のフィルタリング）、<strong>ZTNA</strong>（ゼロトラスト型のリモートアクセス）、<strong>CASB</strong>（SaaSの利用制御）などを包含します。テレワーク環境のセキュリティを根本から見直すなら、SASE/SSEは有力な選択肢です。</p>
+
+    <h3>ID管理——IDaaS/PAM（SaaS＋ネットワーク連携が鍵）</h3>
+    <p>クラウドサービスの利用が増えるほど、ID管理の重要性は高まります。<strong>IDaaS</strong>（Identity as a Service）はSSOとMFAを提供するクラウド型のID管理基盤で、SaaS利用時の認証を一元化できます。</p>
+    <p>見落とされがちなのは、<strong>IDaaS単体では不十分</strong>という点です。SaaSへの認証だけでなく、ネットワーク接続時の認証とも連携させることで、「誰が・どこから・何にアクセスしているか」を横断的に管理できるようになります。<strong>PAM</strong>（Privileged Access Management）は特権アカウントの管理を強化し、管理者権限の悪用を防ぎます。</p>
+
+    <h3>パブリッククラウド——CNAPP（設定ミスが最大のリスク）</h3>
+    <p>クラウド環境における最大のリスクは、高度な攻撃ではなく<strong>設定ミス</strong>です。IAMポリシーの過剰な権限付与やストレージの公開設定など、ヒューマンエラーに起因するインシデントが後を絶ちません。</p>
+    <p><strong>CNAPP</strong>（Cloud-Native Application Protection Platform）は、クラウドセキュリティの主要機能を統合したプラットフォームです。<strong>CSPM</strong>（設定ミスの検出）、<strong>CWPP</strong>（ワークロード保護）、<strong>CIEM</strong>（クラウドの権限管理）、<strong>KSPM</strong>（Kubernetes環境のセキュリティ）などを一括でカバーします。</p>
+
+    <h3>ログ・監視——SIEM/XDR/SOC（検知と対応の統合）</h3>
+    <p>セキュリティ対策を導入しても、攻撃を検知し迅速に対応できなければ被害は拡大します。<strong>SIEM</strong>（Security Information and Event Management）はログを集約・相関分析するプラットフォーム、<strong>XDR</strong>（Extended Detection and Response）はエンドポイント・ネットワーク・クラウドなど複数の領域からのアラートを統合して対応する仕組みです。</p>
+    <p>自社で24時間の監視体制を構築するのは難しい場合、<strong>SOC</strong>（Security Operations Center）サービスとして外部委託する選択肢もあります。<strong>SOAR</strong>（Security Orchestration, Automation and Response）を活用すれば、定型的な対応を自動化し、限られた人員でも運用を回すことが可能です。</p>
+
+    <h3>人——Security Awareness（教育だけでは不十分）</h3>
+    <p>フィッシングメールやソーシャルエンジニアリングに対しては、技術的対策だけでは限界があります。セキュリティ研修やフィッシング訓練の実施は欠かせません。</p>
+    <p>ただし、<strong>教育だけで人的リスクをゼロにすることはできない</strong>のも現実です。「うっかりクリック」は一定の確率で発生するため、メールフィルタリングやサンドボックスといった<strong>技術的な防御との両輪</strong>で対策することが重要です。訓練の目的は「クリックした人を責める」ことではなく、「組織全体の検知力を上げる」ことにあります。</p>
+
+    <h3>公開資産・IoT/OT・AI——広がる攻撃面</h3>
+    <ul>
+      <li><strong>公開資産</strong>：Webアプリケーションの脆弱性対策として<strong>WAF</strong>（Web Application Firewall）やSAST/DAST（静的・動的セキュリティテスト）が基本です。<strong>EASM</strong>（External Attack Surface Management）で外部から見える攻撃面を継続的に把握することも重要性が高まっています。加えて、APIやWebサービスの実行時防御も欠かせません。シークレット情報（APIキー・DB接続情報等）を<strong>シークレットマネージャー</strong>で一元管理し、ソースコードや.envファイルへの直書きを排除する。APIキーには<strong>最小限の認可スコープ</strong>を設定する。<strong>レート制限</strong>で異常なリクエストを遮断する。決済を伴うサービスでは<strong>一回あたりの取引金額の上限</strong>を設ける——こうしたアプリケーションレベルの多層防御が、万が一認証情報が漏洩した場合の被害を局所化します</li>
+      <li><strong>IoT・OT</strong>：工場や設備の制御系システムは、ITネットワークとの分離が原則ですが、DXの進展で接続が増えています。OTセキュリティの可視化と、IT/OT境界のアクセス制御が急務です</li>
+      <li><strong>AI</strong>：生成AIの業務利用が広がる中、プロンプトインジェクションやモデルへの攻撃、学習データの汚染といった新しいリスクが生まれています。<strong>LLM Firewall</strong>や<strong>AI SPM</strong>（AI Security Posture Management）といったカテゴリが形成されつつあります</li>
+    </ul>
+
+    <!-- ───── H2⑥ プラットフォーム統合 ───── -->
+    <h2>プラットフォーム統合という潮流</h2>
+
+    <p>9つのドメインそれぞれに個別の製品を導入すると、管理画面やアラートが分散し、運用負荷が膨らみます。近年のセキュリティ業界では、<strong>部分最適から全体最適へ</strong>——複数の機能を包括するプラットフォームで対策する動きが加速しています。</p>
+    <ul>
+      <li><strong>端末 × 監視</strong>：EDRを起点に、ネットワークやクラウドのログも統合して対応する<strong>XDR/MDR</strong></li>
+      <li><strong>ネットワーク × ID</strong>：SWG・ZTNA・CASBを一体化した<strong>SASE/SSE</strong></li>
+      <li><strong>クラウド</strong>：CSPM・CWPP・CIEMをまとめた<strong>CNAPP</strong></li>
+    </ul>
+    <p>統合プラットフォームの利点は、隙間のない防御と運用の一元化です。アラートの相関分析が容易になり、対応速度も向上します。ただし、自社の環境や既存ツールとの相性もあるため、「何を統合すべきか」は現状のセキュリティマップを可視化したうえで判断するのが得策です。</p>
 
     <!-- ───── H2⑦ ロードマップ ───── -->
-    <h2>現実的なロードマップ——フェーズ別の着手順</h2>
+    <h2>現実的なロードマップ——フェーズ別の着手順（例）</h2>
 
-    <p>優先度マトリクスが「何をやるか」を示すのに対し、ここでは「いつやるか」を時間軸で整理します。</p>
+    <p>セキュリティマップで全体像を把握したら、次は「いつ、何から着手するか」を時間軸で整理します。最適な順序は企業の規模・業種・既存の対策状況によって異なりますが、ここではひとつの目安を示します。</p>
 
-    <h3>フェーズ1（0-3ヶ月）：最優先15項目</h3>
-    <p>最初の3ヶ月で取り組むべきは、コストが比較的低く、効果が大きい施策です。</p>
+    <h3>フェーズ1（0-3ヶ月）：即効性の高い施策から</h3>
+    <p>コストが比較的低く、効果が大きい施策の例です。</p>
     <ul>
-      <li><strong>MFA全社展開</strong>——最も費用対効果が高い単一施策。VPN・メール・SaaSすべてに適用</li>
-      <li><strong>VPN脆弱性の緊急パッチ適用</strong>——侵入経路の80%超を占めるVPN/RDPの脆弱性を即座に対処</li>
-      <li><strong>EDR導入</strong>——アンチウイルスでは検知できない高度な脅威をエンドポイントで検知・対応</li>
-      <li><strong>3-2-1バックアップの確立</strong>——3つのコピー、2種類のメディア、1つはオフサイト。ランサムウェア対策の最後の砦</li>
-      <li><strong>インシデント対応計画の策定</strong>——「誰が」「何を」「どの順番で」対応するかを事前に決めておく</li>
-      <li><strong>フィッシング訓練の開始</strong>——技術対策と並行して、人的な防御力を高める</li>
+      <li><strong>MFA全社展開</strong>——VPN・メール・SaaSすべてに適用。費用対効果が高い</li>
+      <li><strong>VPN/RDP脆弱性の緊急パッチ適用</strong>——侵入経路の80%超を占めるリスクポイントを即座に対処</li>
+      <li><strong>EDR導入・運用体制の構築</strong>——導入だけでなく、アラート対応の体制まで整える</li>
+      <li><strong>3-2-1バックアップの確立</strong>——3つのコピー、2種類のメディア、1つはオフサイト</li>
+      <li><strong>インシデント対応計画の策定</strong>——「誰が」「何を」「どの順番で」を事前に決めておく</li>
+      <li><strong>フィッシング訓練の開始</strong>——技術対策と並行して、人的な検知力を高める</li>
+      <li><strong>シークレット管理の見直し</strong>——APIキーや接続情報の直書きを排除し、認可スコープを最小化</li>
     </ul>
 
-    <h3>フェーズ2（3-6ヶ月）：推奨項目</h3>
-    <p>基盤が整ったら、可視化と制御を強化します。</p>
+    <h3>フェーズ2（3-6ヶ月）：可視化と制御の強化</h3>
+    <p>基盤が整ったら、可視化と制御範囲の拡大に取り組む例です。</p>
     <ul>
-      <li><strong>IT資産台帳の整備</strong>——守るべき対象が見えなければ、守ることはできない</li>
-      <li><strong>ネットワークセグメンテーション</strong>——万が一侵入されても、被害の拡大を最小限に抑える</li>
-      <li><strong>ログ管理基盤の整備</strong>——いつ、何が起きたかを追跡できる体制を構築</li>
-      <li><strong>委託先のセキュリティ基準策定</strong>——サプライチェーン全体のリスクを管理するための第一歩</li>
+      <li><strong>IDaaS/SSO導入</strong>——SaaSとネットワークの認証を一元化し、シャドーITも可視化</li>
+      <li><strong>ネットワークセグメンテーション</strong>——万が一侵入されても、被害の拡大を最小限に</li>
+      <li><strong>SIEM/ログ管理基盤の整備</strong>——いつ、何が起きたかを追跡できる体制を構築</li>
+      <li><strong>CSPM導入</strong>——クラウド環境の設定ミスを継続的に検出・是正</li>
+      <li><strong>委託先のセキュリティ基準策定</strong>——サプライチェーン全体のリスク管理の第一歩</li>
     </ul>
 
-    <h3>フェーズ3（6ヶ月-）：中長期施策とSCS評価制度対応</h3>
-    <p>中長期的には、より高度な施策とガバナンスの強化に取り組みます。</p>
+    <h3>フェーズ3（6ヶ月-）：統合・高度化</h3>
+    <p>中長期的には、プラットフォーム統合や制度対応が視野に入ります。</p>
     <ul>
-      <li><strong>ゼロトラストアーキテクチャへの段階的移行</strong>——「信頼しない、常に検証する」を前提としたセキュリティモデルへ</li>
+      <li><strong>SASE/SSEへの移行</strong>——VPN依存を脱却し、ゼロトラスト型のリモートアクセスへ</li>
+      <li><strong>XDR/MDRによる検知・対応の統合</strong>——複数ドメインのアラートを統合し、対応を効率化</li>
       <li><strong>SBOM管理・DevSecOpsの導入</strong>——ソフトウェアサプライチェーンの透明性を確保</li>
-      <li><strong>SCS評価制度への対応</strong>——経済産業省が推進する「サプライチェーン強化に向けたセキュリティ対策評価制度」は、FY2026末（2027年3月）までの運用開始を目指しています。自社の対策レベルの棚卸しは今から始められます</li>
+      <li><strong>SCS評価制度への対応</strong>——経済産業省が推進する「サプライチェーン強化に向けたセキュリティ対策評価制度」。FY2026末の運用開始を目指しており、自社の対策レベルの棚卸しは今から始められます</li>
     </ul>
+    <p>上記はあくまで一例です。自社のセキュリティマップを可視化し、手薄なドメインから優先的に着手することが重要です。</p>
 
     <!-- ───── H2⑧ 経営層への問い ───── -->
     <h2>経営層が今日から問うべき5つの質問</h2>
@@ -560,17 +547,12 @@
 
       <div class="blog-faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
         <div class="blog-faq-q" itemprop="name">中小企業でも同じ対策が必要ですか？</div>
-        <div class="blog-faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><div itemprop="text">全28項目を同時に導入する必要はありません。MFA・EDR・バックアップの「最優先3点セット」から着手し、段階的に拡張するアプローチが有効です。サプライチェーン攻撃の標的になるリスクは企業規模を問いません。</div></div>
+        <div class="blog-faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><div itemprop="text">9つのドメインすべてを同時にカバーする必要はありません。まずはセキュリティマップで自社の対策状況を可視化し、MFA・EDR・バックアップなど即効性の高い施策から着手するのが有効です。サプライチェーン攻撃の標的になるリスクは企業規模を問いません。</div></div>
       </div>
 
       <div class="blog-faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
         <div class="blog-faq-q" itemprop="name">ゼロトラストは今すぐ導入すべきですか？</div>
         <div class="blog-faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><div itemprop="text">完全なゼロトラストは中長期的な移行プロジェクトです。まずVPN脆弱性対応とネットワークセグメンテーションで境界防御を強化し、段階的にゼロトラストアーキテクチャへ移行するのが現実的です。</div></div>
-      </div>
-
-      <div class="blog-faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
-        <div class="blog-faq-q" itemprop="name">SCS評価制度への対応はいつから始めるべきですか？</div>
-        <div class="blog-faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><div itemprop="text">制度の運用開始はFY2026末（2027年3月）を目指していますが、自社のセキュリティ対策レベルの棚卸しは今から始められます。星3以上を目指すなら外部評価の準備期間も考慮が必要です。</div></div>
       </div>
 
       <div class="blog-faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
@@ -582,8 +564,8 @@
 
     <!-- ───── CTA ───── -->
     <div class="blog-cta-box">
-      <p>「自社の優先度はどこか」「何から着手すべきか」<br>——まずは現状の把握から始めませんか。</p>
-      <p>セキュリティ体制の診断・対策の優先順位づけについて、<br>お気軽にご相談ください。</p>
+      <p>「9つのドメインのうち、自社はどこが手薄か」<br>——セキュリティマップで対策状況を可視化しませんか。</p>
+      <p>現状のアセスメントから優先施策の特定、ロードマップ策定まで、<br>お気軽にご相談ください。</p>
       <a href="../contact/" class="btn-green">
         お問い合わせはこちら
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
