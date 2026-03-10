@@ -4,6 +4,14 @@
 
 var BLOG_DATA = [
   {
+    id: 'ai-civilization-liberal-arts',
+    date: '2026.03.10',
+    category: 'ai',
+    categoryLabel: 'AI戦略',
+    title: 'AI文明は社会をどう変えるか ― エージェント経済・国家・リベラルアーツの視点から',
+    summary: 'AIエージェント市場は2034年に2,360億ドル超へ急成長。限界コストゼロ・ブロックチェーン融合・デジタル国家……この構造転換を経済・組織・国家・教養の4角度から整理し、経営者が今備えるべき視点を解説します。'
+  },
+  {
     id: 'security-comprehensive-guide',
     date: '2026.03.07',
     category: 'security',
