@@ -4,6 +4,14 @@
 
 var BLOG_DATA = [
   {
+    id: 'ai-driven-hybrid-development',
+    date: '2026.03.22',
+    category: 'dx-dev',
+    categoryLabel: 'DX・開発方法論',
+    title: 'AI駆動開発の一つの解 ― 20人月→2人月にした、探索と実装を分離する開発フレームワーク',
+    summary: '20人月規模のシステムを1人のエンジニアが2ヶ月弱でリリース。探索期と実装期を分離するハイブリッド開発フレームワークを、実務経験に基づいて解説します。'
+  },
+  {
     id: 'ai-civilization-liberal-arts',
     date: '2026.03.10',
     category: 'ai',

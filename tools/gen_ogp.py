@@ -11,6 +11,7 @@ LOGO_PATH = os.path.join(os.path.dirname(__file__), '..', 'img', 'corporate_LOGO
 OUT_DIR = os.path.join(os.path.dirname(__file__), '..', 'img', 'ogp')
 
 ARTICLES = [
+    'ai-driven-hybrid-development',
     'security-comprehensive-guide',
     'ai-governance-balance',
     'dx-transformation-reality',
