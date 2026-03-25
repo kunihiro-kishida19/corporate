@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<!-- Google Analytics (GA4) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-55QTMHWXX0"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-55QTMHWXX0');</script>
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com; img-src 'self' data:; connect-src 'self' https://formspree.io https://www.googletagmanager.com https://www.google-analytics.com https://*.google-analytics.com;">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AIをどこまで入れるか——ドメイン別4層モデルで考える全社AI活用戦略 | Balcony合同会社</title>
+<meta name="description" content="エージェントAI時代、経営層が悩む「基幹系にAIを入れていいのか」という問い。McKinsey・BCG・Gartner・Forresterの最新レポートを横断整理し、ドメイン別4層アーキテクチャモデルで判断の考え方を提案します。CIO/CTO/CDOが知っておきたい論点整理。">
+<meta name="author" content="Balcony合同会社">
+<link rel="canonical" href="https://balcony.co.jp/blog/enterprise-ai-architecture-domain-model.html">
+<!-- OGP -->
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Balcony合同会社">
+<meta property="og:title" content="AIをどこまで入れるか——ドメイン別4層モデルで考える全社AI活用戦略">
+<meta property="og:description" content="エージェントAI時代、経営層が悩む「基幹系にAIを入れていいのか」という問い。McKinsey・BCG・Gartner・Forresterの最新レポートを横断整理し、ドメイン別4層アーキテクチャモデルで判断の考え方を提案します。CIO/CTO/CDOが知っておきたい論点整理。">
+<meta property="og:url" content="https://balcony.co.jp/blog/enterprise-ai-architecture-domain-model.html">
+<meta property="og:image" content="https://balcony.co.jp/img/ogp/enterprise-ai-architecture-domain-model.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="ja_JP">
+<meta property="article:published_time" content="2026-03-26">
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="AIをどこまで入れるか——ドメイン別4層モデルで考える全社AI活用戦略">
+<meta name="twitter:description" content="エージェントAI時代、経営層が悩む「基幹系にAIを入れていいのか」という問い。McKinsey・BCG・Gartner・Forresterの最新レポートを横断整理し、ドメイン別4層アーキテクチャモデルで判断の考え方を提案します。CIO/CTO/CDOが知っておきたい論点整理。">
+<meta name="twitter:image" content="https://balcony.co.jp/img/ogp/enterprise-ai-architecture-domain-model.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="dns-prefetch" href="https://www.googletagmanager.com">
+<link rel="stylesheet" href="../css/style.css">
+<!-- JSON-LD Structured Data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Article",
+      "headline": "AIをどこまで入れるか——ドメイン別4層モデルで考える全社AI活用戦略",
+      "datePublished": "2026-03-26",
+      "dateModified": "2026-03-26",
+      "description": "エージェントAI時代、経営層が悩む「基幹系にAIを入れていいのか」という問い。McKinsey・BCG・Gartner・Forresterの最新レポートを横断整理し、ドメイン別4層アーキテクチャモデルで判断の考え方を提案します。CIO/CTO/CDOが知っておきたい論点整理。",
+      "url": "https://balcony.co.jp/blog/enterprise-ai-architecture-domain-model.html",
+      "author": {"@type": "Organization", "name": "Balcony合同会社", "@id": "https://balcony.co.jp/#organization"},
+      "publisher": {"@id": "https://balcony.co.jp/#organization"},
+      "image": "https://balcony.co.jp/img/corporate_LOGO/Balcony_B1.png",
+      "mainEntityOfPage": "https://balcony.co.jp/blog/enterprise-ai-architecture-domain-model.html"
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "基幹系（会計・ERP）にAIを導入しても内部統制上の問題はないですか？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "仕訳の確定や承認フローにAIの推論を挟むことは、非決定性の観点から内部統制と衝突するリスクがあると考えられます。一方、入力補助や異常検知といった補助的な活用は有効とされています。現時点では「コアを守りつつ周辺を拡張する」設計が妥当ではないでしょうか。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "エージェントAIやMCPは基幹系の代替になりますか？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "現時点では代替ではなく拡張という位置づけが各ファームの共通した見方です。MCPやエージェントAIが効果を発揮しやすいのは、対外コミュニケーションや文書処理など、ある程度の曖昧さを許容できる領域だと考えられます。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "全社的なAI導入の優先順位はどう考えればよいですか？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "業務ドメインごとにAIの適用パターンと制約が異なるため、ドメイン別に整理するアプローチが有効と考えられます。本記事では、会計・内部統制、業務判断支援、対外コミュニケーション、IT基盤の4層に分類する考え方を提案しています。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "McKinseyやBCGはエンタープライズAIアーキテクチャについてどう見ていますか？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "McKinseyはドメイン単位の段階的アプローチを推奨しています。BCGはAIで実質的価値を創出している企業はわずか5%と報告し、技術力よりも組織構造と運用モデルの変革が鍵と指摘しています。Gartnerは2026年末にエンタープライズアプリの40%がタスク特化型AIエージェントを組み込むと予測しています。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "AI導入の判断で迷ったときに使える基準はありますか？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "3段階の問いかけが有効と考えられます。まず「そのプロセスに説明責任が求められるか」、次に「監査対象か」、そして「処理結果を監査で説明できるか」。説明責任が軽い領域はAI自律度を高めやすく、監査対象でなければ参考値としての活用が可能です。監査対象のプロセスでは、AIを候補提示や検知に限定し、最終判断は人間に残す設計が現時点では妥当と考えられます。"
+          }
+        }
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {"@type": "ListItem", "position": 1, "name": "ホーム", "item": "https://balcony.co.jp/"},
+        {"@type": "ListItem", "position": 2, "name": "ブログ", "item": "https://balcony.co.jp/blog/"},
+        {"@type": "ListItem", "position": 3, "name": "ドメイン別4層モデルで考える全社AI活用戦略", "item": "https://balcony.co.jp/blog/enterprise-ai-architecture-domain-model.html"}
+      ]
+    }
+  ]
+}
+</script>
+<style>
+/* ── BLOG ARTICLE ── */
+.blog-article-section{background:var(--white)}
+.blog-article{max-width:800px;margin:0 auto}
+.blog-article-meta{display:flex;align-items:center;gap:14px;margin-bottom:12px}
+.blog-article-date{font-family:'Plus Jakarta Sans',sans-serif;font-size:18px;font-weight:600;color:var(--text-l);letter-spacing:1px}
+.blog-article-cat{display:inline-flex;font-size:15px;font-weight:500;padding:3px 12px;border-radius:20px;background:rgba(107,143,113,0.08);color:var(--g1)}
+.blog-article h1{font-size:clamp(28px,4vw,38px);font-weight:900;color:var(--text);line-height:1.5;margin-bottom:20px}
+.blog-article-lead{font-size:21px;color:var(--text-m);line-height:2;padding:24px;background:var(--g-pale);border-left:4px solid var(--g1);border-radius:0 8px 8px 0;margin-bottom:48px}
+.blog-article h2{font-size:28px;font-weight:800;color:var(--text);margin:56px 0 20px;padding-bottom:12px;border-bottom:2px solid var(--g1);line-height:1.5}
+.blog-article h3{font-size:23px;font-weight:700;color:var(--text-b);margin:36px 0 14px;padding-left:14px;border-left:3px solid var(--g2);line-height:1.5}
+.blog-article p{font-size:21px;color:var(--text-m);line-height:2.1;margin-bottom:20px}
+.blog-article ul,.blog-article ol{font-size:21px;color:var(--text-m);line-height:2.1;margin:0 0 20px 24px}
+.blog-article li{margin-bottom:6px}
+.blog-article table{width:100%;border-collapse:collapse;margin:24px 0 32px;font-size:19px}
+.blog-article thead th{background:var(--g1);color:white;font-weight:700;padding:14px 16px;text-align:left}
+.blog-article thead th:first-child{border-radius:8px 0 0 0}
+.blog-article thead th:last-child{border-radius:0 8px 0 0}
+.blog-article tbody td{padding:14px 16px;border-bottom:1px solid var(--border-l);line-height:1.7;vertical-align:top}
+.blog-article tbody tr:hover{background:var(--g-pale)}
+.blog-article strong{color:var(--text)}
+.blog-cta-box{background:var(--g-pale);border:1px solid var(--border);border-radius:var(--r-lg);padding:36px;text-align:center;margin:48px 0}
+.blog-cta-box p{font-size:20px;margin-bottom:16px}
+.blog-back{display:inline-flex;align-items:center;gap:8px;font-size:18px;font-weight:600;color:var(--g1);margin-top:48px;transition:gap var(--t)}
+.blog-back:hover{gap:12px}
+.blog-faq{margin:32px 0}
+.blog-faq-item{border-bottom:1px solid var(--border-l);padding:20px 0}
+.blog-faq-item:first-child{border-top:1px solid var(--border-l)}
+.blog-faq-q{font-size:21px;font-weight:700;color:var(--text);margin-bottom:10px;padding-left:28px;position:relative}
+.blog-faq-q::before{content:'Q';position:absolute;left:0;font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;color:var(--g1)}
+.blog-faq-a{font-size:20px;color:var(--text-m);line-height:2;padding-left:28px;position:relative}
+.blog-faq-a::before{content:'A';position:absolute;left:0;font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;color:var(--g2)}
+.blog-ref{margin:32px 0}
+.blog-ref ol{font-size:16px;color:var(--text-l);line-height:1.9;margin:0 0 0 24px}
+.blog-ref li{margin-bottom:4px}
+.blog-ref a{color:var(--g1);text-decoration:underline}
+.blog-ref a:hover{color:var(--g2)}
+.blog-article blockquote{border-left:4px solid var(--g2);padding:16px 20px;margin:24px 0;background:var(--g-pale);border-radius:0 8px 8px 0;font-size:21px;color:var(--text-m);line-height:2;font-style:italic}
+/* ── 記事固有: callout ── */
+.blog-callout{background:var(--g-pale);border-left:4px solid var(--g2);border-radius:0 8px 8px 0;padding:20px 24px;margin:24px 0}
+.blog-callout-title{font-weight:700;color:var(--g1);margin-bottom:8px;font-size:19px}
+.blog-callout p{font-size:19px}
+/* ── 記事固有: フローチャート ── */
+.blog-framework-svg{margin:32px 0;text-align:center}
+.blog-framework-svg svg{max-width:100%;height:auto}
+/* ── 記事固有: layer-table ── */
+.layer-label{font-weight:700;color:var(--g1);white-space:nowrap}
+@media(max-width:768px){
+  .blog-article{max-width:100%}
+  .blog-article h1{font-size:24px;line-height:1.6}
+  .blog-article h2{font-size:21px;margin:40px 0 16px}
+  .blog-article h3{font-size:19px;margin:28px 0 12px}
+  .blog-article p,.blog-article ul,.blog-article ol{font-size:17px;line-height:2}
+  .blog-article-lead{font-size:17px;padding:18px;margin-bottom:36px}
+  .blog-article-lead p{font-size:17px!important}
+  .blog-article-lead ul{font-size:16px!important;line-height:1.9!important}
+  .blog-article table{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .blog-article thead th,.blog-article tbody td{font-size:15px;padding:10px 12px;min-width:90px}
+  .blog-cta-box{padding:24px 20px}
+  .blog-cta-box p{font-size:17px}
+  .blog-faq-q{font-size:17px}
+  .blog-faq-a{font-size:16px}
+  .blog-ref ol{font-size:14px}
+  .blog-callout{padding:16px 18px}
+  .blog-callout p{font-size:17px}
+  .blog-callout-title{font-size:17px}
+}
+</style>
+</head>
+<body>
+
+<div id="toast-popup" role="alert" aria-live="polite">
+  <div class="toast-icon"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></div>
+  <div><div class="toast-title">送信ありがとうございました</div><div class="toast-sub">担当者よりご連絡いたします。</div></div>
+  <div class="toast-bar"></div>
+</div>
+
+<div class="mobile-menu" id="mobile-menu">
+  <a href="../" data-page="home" onclick="closeMenu()">Home</a>
+  <a href="../service/" data-page="service" onclick="closeMenu()">Service</a>
+  <a href="../company/" data-page="company" onclick="closeMenu()">Company</a>
+  <a href="../news/" data-page="news" onclick="closeMenu()">News</a>
+  <a href="../blog/" data-page="blog" onclick="closeMenu()">Blog</a>
+  <a href="../contact/" class="m-contact" data-page="contact" onclick="closeMenu()">Contact</a>
+</div>
+
+<nav class="nav" id="main-nav">
+  <a href="../" class="nav-logo"><img src="../img/corporate_LOGO/Balcony_B1.png" alt="Balcony"></a>
+  <div class="nav-links">
+    <a href="../" data-page="home">HOME</a>
+    <a href="../service/" data-page="service">SERVICE</a>
+    <a href="../company/" data-page="company">COMPANY</a>
+    <a href="../news/" data-page="news">NEWS</a>
+    <a href="../blog/" data-page="blog">BLOG</a>
+    <a href="../contact/" class="nav-contact-btn" data-page="contact">CONTACT</a>
+  </div>
+  <button class="hamburger" id="hamburger" aria-label="メニュー"><span></span><span></span><span></span></button>
+</nav>
+
+<main>
+<!-- PAGE HERO -->
+<section class="page-hero">
+  <div class="page-hero-bg" style="background-image:url('../img/contents/blogTop.jpg')"></div>
+  <div class="page-hero-overlay"></div>
+  <div class="page-hero-content">
+    <div class="page-hero-tag">Knowledge</div>
+    <h1 class="page-hero-title">Blog</h1>
+  </div>
+</section>
+
+<!-- ARTICLE -->
+<section class="section blog-article-section">
+  <article class="blog-article">
+    <div class="blog-article-meta">
+      <span class="blog-article-date">2026.03.26</span>
+      <span class="blog-article-cat">AI戦略</span>
+    </div>
+    <h1>AIをどこまで入れるか<br>——ドメイン別4層モデルで考える全社AI活用戦略</h1>
+
+    <div class="blog-article-lead">
+      <p style="font-size:20px;font-weight:700;color:var(--g1);margin-bottom:12px;">1分でわかるサマリ</p>
+      <ul style="font-size:19px;color:var(--text-m);line-height:2;margin:0 0 0 20px;">
+        <li>「AIをどの業務にどこまで入れるか」は、多くの経営層が判断に悩んでいるテーマではないか</li>
+        <li>McKinsey・BCG・Gartner・Forresterの最新レポートを見る限り、基幹系の完全代替を推奨するファームは見当たらない</li>
+        <li>業務ドメインを4層に分け、AI適用の考え方を整理する「4層アーキテクチャモデル」を提案</li>
+        <li>判断に迷ったときは「説明責任があるか」「監査対象か」「説明できるか」の3段階で考えてみるのが一つの手がかりになる</li>
+        <li>現時点では、基幹系は「置き換え」より「拡張」で考えるのが妥当ではないか</li>
+      </ul>
+    </div>
+
+    <!-- ───── H2-1 ───── -->
+    <h2>経営層が今、最も悩んでいるかもしれない問い</h2>
+
+    <p>エージェントAI、MCP（Model Context Protocol）、Agentic Mesh——。2025年から2026年にかけて、AIとシステム連携に関する新しい概念が次々と登場しています。生成AIの「チャット」的な活用に慣れてきた企業が次に直面しているのは、おそらく「この技術を、会社のどの業務に、どこまで入れていいのか」という判断ではないでしょうか。</p>
+
+    <p>この問いが厄介なのは、答えがドメインによって変わるからです。カスタマーサービスや文書作成であれば、AIエージェントの効果は比較的見えやすい。一方で、会計処理や内部統制のように1円の誤差も許されない領域では、「AIの推論を挟んでもよいのか」という根本的な疑問が残ります。</p>
+
+    <p>多くのCIO/CTO/CDOの方は、こうした判断を求められながらも、判断材料が十分に整理されていないと感じているのではないでしょうか。本記事では、主要ファームの最新レポートを横断整理した上で、「どのドメインにどこまで入れるか」を考えるための一つの枠組みを提案してみたいと思います。</p>
+
+    <!-- ───── H2-2 ───── -->
+    <h2>主要ファームはどう見ているか</h2>
+
+    <p>まず、この領域に関する主要ファームの最新見解を確認します。各社のトーンに差はありますが、「基幹系をAIエージェントで全面的に置き換える」と主張しているところは、少なくとも現時点では見当たりません。</p>
+
+    <h3>McKinsey——「拡張レイヤー」という位置づけ</h3>
+
+    <p>McKinseyは2026年3月の「Rethinking Enterprise Architecture for the Agentic Era」で、「インクリメンタル統合（段階的導入）」と「包括的変革（全面刷新）」の2パスを提示しています。興味深いのは、同レポートがエージェントAIを既存システムの「代替」ではなく「拡張レイヤー」と位置づけている点です。数十年かけて蓄積されたビジネスルールやドメイン知識の置き換えはリスクが高く、むしろ強化する方向が合理的だと述べられています。</p>
+
+    <h3>BCG——価値を出せている企業は5%</h3>
+
+    <p>BCGの「The Widening AI Value Gap」（2025年9月、調査対象1,250社）によると、AIから実質的な価値を生み出せている企業はわずか5%で、60%はほぼ成果が出ていないとのことです。この格差の主因は技術力ではなく「組織の吸収能力」にあるとされており、エージェントAIについても「プラグアンドプレイではない」と明言されています。</p>
+
+    <h3>Gartner——急拡大と新たなリスクの両面</h3>
+
+    <p>Gartnerは、2026年末にエンタープライズアプリの40%がAIエージェントを組み込むと予測する一方で、2028年までにエンタープライズ侵害の25%がAIエージェントの悪用に起因する可能性があるとも指摘しています。活用とガバナンスの両立が求められるという見方です。</p>
+
+    <h3>Forrester——ERPガバナンスの転換点</h3>
+
+    <p>Forresterは、ERPベンダーの半数が自律的ガバナンスモジュールを立ち上げると予測しています。SAP、Microsoft、Oracleなどが、基幹系へのAI統合を前提としたガバナンスインフラに投資を進めているようです。また、従来の時点ベースの監査ではエージェントAIに対応しきれないとして、リアルタイムガバナンスの「AEGISフレームワーク」（エージェントAIの自律的行動を継続監視し、逸脱を即時検知する仕組み）を提唱しています。</p>
+
+    <div class="blog-callout">
+      <div class="blog-callout-title">各ファームに共通していそうな認識</div>
+      <p>「エージェントAIは既存基盤の拡張レイヤーである」「ガバナンスは設計時点から考える」「ドメインによってAI適用の深さは異なる」——この3点は、表現の差はあれ、各ファームにおおむね共通しているように見えます。同時に、エージェントAIの進化速度が速いため、「この境界線は今後変わり得る」という前提も共有されている印象です。</p>
+    </div>
+
+    <!-- ───── H2-3 ───── -->
+    <h2>4層アーキテクチャモデル——一つの考え方</h2>
+
+    <p>こうしたファームの見解を踏まえた上で、全社のAI活用判断を整理する枠組みとして「ドメイン別4層アーキテクチャモデル」を提案します。考え方はシンプルで、業務ドメインを「求められる確実性と説明可能性の水準」で分け、水準に応じてAIの関わり方を変える、というものです。</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>層</th>
+          <th>対象ドメイン</th>
+          <th>AI適用の考え方</th>
+          <th>活用イメージ</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="layer-label">第1層<br>Record of Truth</td>
+          <td>会計・財務経理<br>内部統制</td>
+          <td>AIは補助・検知に限定。<br>コアの処理に推論を挟まない</td>
+          <td>仕訳候補の自動提示→人間承認<br>異常値アラート<br>統制テストの自動チェック</td>
+        </tr>
+        <tr>
+          <td class="layer-label">第2層<br>Operational Intelligence</td>
+          <td>調達・購買<br>サプライチェーン<br>営業・CRM<br>人事・労務</td>
+          <td>AI推奨→人間/ルール判断。<br>閾値ベースで段階的に自律化</td>
+          <td>需要予測に基づく在庫補充提案<br>収益予測シミュレーション<br>定型発注の自動化</td>
+        </tr>
+        <tr>
+          <td class="layer-label">第3層<br>Interaction &amp; Automation</td>
+          <td>カスタマーサービス<br>文書・対外コミュニケーション</td>
+          <td>AIが主導、人間はレビュー・例外対応</td>
+          <td>問い合わせの自動分類・回答生成<br>定型メールの自動作成<br>MCP連携でのシステム横断情報取得</td>
+        </tr>
+        <tr>
+          <td class="layer-label">基盤層<br>IT Infrastructure</td>
+          <td>IT基盤・セキュリティ</td>
+          <td>検知・初動はAI、判断は人間</td>
+          <td>脅威検知とインシデント初動<br>LLMセキュリティ診断<br>Shadow AI検知</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>第1層：Record of Truth——確実性が最優先の領域</h3>
+
+    <p>会計や内部統制では、同じインプットから常に同じアウトプットが出ることが求められます。AIの非決定性（同じ入力から異なる出力が生まれる性質）は、この設計原則と相性がよくないと考えられます。したがってこの層では、AIはコアの処理の外側——入力補助や異常検知——に位置づけるのが現時点では妥当ではないでしょうか。</p>
+
+    <p>たとえば、請求書のOCRから仕訳候補を自動提示する、月次推移の逸脱を検知してアラートを出す、といった用途では、実用的な効果が見込めます。ポイントは、仕訳の確定や承認判断の最終責任は人間に残す設計です。Forresterが予測するERPベンダーのガバナンスモジュールも、「AIが提案し、統制が自動で効く」という思想に基づいていると読み取れます。</p>
+
+    <h3>第2層：Operational Intelligence——最も効果が見込める領域</h3>
+
+    <p>調達、サプライチェーン、営業、人事といった業務判断支援の領域は、AI活用の効果が大きく見込める層だと考えられます。この層の特徴は「正解に幅がある」こと。需要予測が多少ずれても致命的ではなく、パイプラインの確度予測も参考値として機能すれば十分です。</p>
+
+    <p>ここでは「閾値ベースの段階的自律化」が一つの有効な設計パターンになりそうです。たとえば調達なら、既知サプライヤーへの少額定型発注はAIエージェントに任せ、高額案件や新規取引は人間の承認を必須にする——といった段階設計です。営業領域では、過去の顧客特性（業種、規模、商談期間など）をもとに案件ごとの着地をシミュレーションし、楽観・基本・悲観シナリオとして提示する設計が考えられます。予測値を「確定数値」と混同させず、あくまで判断材料として活用するのがポイントです。</p>
+
+    <h3>第3層：Interaction &amp; Automation——エージェントが最もフィットする領域</h3>
+
+    <p>カスタマーサービスや文書管理は、エージェントAIやMCPが最もフィットしやすい領域だと考えられます。McKinseyもCSをエージェントAIの初期成功領域として挙げています。問い合わせの自動分類から始めて段階的に自律度を上げていく設計は、比較的リスクを抑えやすいのではないでしょうか。</p>
+
+    <p>文書管理では、MCPを活用した複数システムからの情報取得と、それに基づく定型文書の自動生成が実用段階に入りつつあります。AI主導で処理し、人間はレビューと例外対応に集中する、という役割分担は現実的な選択肢になってきています。</p>
+
+    <h3>基盤層：IT Infrastructure——守りの自動化</h3>
+
+    <p>Gartnerは2029年までに70%の企業がインフラ運用にエージェントAIを導入すると予測しています。脅威検知やインシデント初動はAI自動化に適していますが、一方でForresterはエージェントAI自体が新たな攻撃面になるリスクも指摘しています。エージェントへの権限付与は最小限にとどめ、エージェント同士を監視する仕組み（Gartnerの「Guardian Agent」）を併設する考え方が広がりつつあるようです。</p>
+
+    <!-- ───── H2-4 ───── -->
+    <h2>判断に迷ったときの考え方——3つの問い</h2>
+
+    <p>4層モデルは大まかな判断の地図ですが、個別のプロセスで「ここにAIを入れていいのか」と迷う場面も出てきます。そのときに使える手がかりとして、3段階の問いかけを提案します。</p>
+
+    <p>まず、<strong>「そのプロセスに説明責任が求められるか」</strong>。社内の業務効率化や情報整理のように、結果の正確性よりもスピードや利便性が重視される領域であれば、AIの自律度を比較的高くしても問題は起きにくいと考えられます。メール下書きの自動生成や社内ナレッジの検索・要約などがこれにあたります。説明責任が軽い領域は、AI活用のハードルが低く、まず着手しやすい場所です。</p>
+
+    <p>次に、説明責任がある場合には、<strong>「そのプロセスは監査対象か」</strong>を確認します。J-SOXの統制対象や法定帳簿に直結するプロセスと、社内の管理会計や営業予測のように経営判断の参考に使われるプロセスでは、求められる厳密さが異なります。監査対象でない場合、AIの推論結果を「参考値」として活用する設計は十分に成り立つと考えられます。</p>
+
+    <p>そして、監査対象のプロセスであれば、<strong>「その処理結果を監査で問われたとき、なぜその出力になったか説明できるか」</strong>。ここが最も慎重な判断が必要なラインです。「AIが異常値を検知し、それを受けて人間が判断した」は説明可能ですが、「AIが自律的に仕訳を起票し、計上額が変動した」は、なぜその金額になったかを確定的に説明するのが難しい。監査対象プロセスでは、AIの関与を「候補提示」や「検知」にとどめ、最終判断は人間に残す設計が現時点では妥当だと考えます。</p>
+
+    <div class="blog-framework-svg">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 440" width="100%" role="img" aria-label="AI導入判断の3つの問い — デシジョンツリー">
+      <defs>
+        <marker id="arrowG" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8" fill="#6B8F71"/></marker>
+        <marker id="arrowD" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8" fill="#3A4A3C"/></marker>
+      </defs>
+
+      <!-- タイトル -->
+      <text x="380" y="22" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="15" font-weight="700" fill="#3A4A3C">3つの問いを整理すると</text>
+
+      <!-- ① 説明責任が求められるか？ -->
+      <polygon points="230,42 360,82 230,122 100,82" fill="#6B8F71"/>
+      <text x="230" y="78" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="12" font-weight="700" fill="white">① 説明責任が</text>
+      <text x="230" y="93" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="12" font-weight="700" fill="white">求められるか？</text>
+
+      <!-- ①→右: No → 結果A -->
+      <line x1="360" y1="82" x2="415" y2="82" stroke="#6B8F71" stroke-width="2" marker-end="url(#arrowG)"/>
+      <text x="388" y="74" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="10" fill="#6B8F71" font-weight="500">No</text>
+      <rect x="423" y="58" width="310" height="48" rx="8" fill="white" stroke="#6B8F71" stroke-width="2"/>
+      <text x="578" y="78" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="12" font-weight="700" fill="#6B8F71">AI自律度を高めやすい</text>
+      <text x="578" y="95" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="10" fill="#6B7D6E">メール下書き、社内検索など</text>
+
+      <!-- ①→下: Yes -->
+      <line x1="230" y1="122" x2="230" y2="152" stroke="#3A4A3C" stroke-width="2" marker-end="url(#arrowD)"/>
+      <text x="248" y="142" font-family="'Noto Sans JP',sans-serif" font-size="10" fill="#3A4A3C" font-weight="500">Yes</text>
+
+      <!-- ② 監査対象か？ -->
+      <polygon points="230,160 345,200 230,240 115,200" fill="#6B8F71"/>
+      <text x="230" y="204" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="13" font-weight="700" fill="white">② 監査対象か？</text>
+
+      <!-- ②→右: No → 結果B -->
+      <line x1="345" y1="200" x2="415" y2="200" stroke="#6B8F71" stroke-width="2" marker-end="url(#arrowG)"/>
+      <text x="380" y="192" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="10" fill="#6B8F71" font-weight="500">No</text>
+      <rect x="423" y="176" width="310" height="48" rx="8" fill="white" stroke="#6B8F71" stroke-width="2"/>
+      <text x="578" y="196" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="12" font-weight="700" fill="#6B8F71">参考値として活用可能</text>
+      <text x="578" y="213" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="10" fill="#6B7D6E">管理会計、営業予測など</text>
+
+      <!-- ②→下: Yes -->
+      <line x1="230" y1="240" x2="230" y2="270" stroke="#3A4A3C" stroke-width="2" marker-end="url(#arrowD)"/>
+      <text x="248" y="260" font-family="'Noto Sans JP',sans-serif" font-size="10" fill="#3A4A3C" font-weight="500">Yes</text>
+
+      <!-- ③ 監査で説明できるか？ -->
+      <polygon points="230,278 360,318 230,358 100,318" fill="#6B8F71"/>
+      <text x="230" y="314" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="12" font-weight="700" fill="white">③ 監査で</text>
+      <text x="230" y="329" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="12" font-weight="700" fill="white">説明できるか？</text>
+
+      <!-- ③→右: Yes → 結果C -->
+      <line x1="360" y1="318" x2="415" y2="318" stroke="#6B8F71" stroke-width="2" marker-end="url(#arrowG)"/>
+      <text x="384" y="310" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="10" fill="#6B8F71" font-weight="500">Yes</text>
+      <rect x="423" y="294" width="310" height="48" rx="8" fill="white" stroke="#6B8F71" stroke-width="2"/>
+      <text x="578" y="314" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="12" font-weight="700" fill="#6B8F71">AI連携が有効</text>
+      <text x="578" y="331" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="10" fill="#6B7D6E">OCR→候補提示→人間承認</text>
+
+      <!-- ③→下: No → 結果D -->
+      <line x1="230" y1="358" x2="230" y2="380" stroke="#3A4A3C" stroke-width="2" marker-end="url(#arrowD)"/>
+      <text x="248" y="374" font-family="'Noto Sans JP',sans-serif" font-size="10" fill="#3A4A3C" font-weight="500">No</text>
+      <rect x="85" y="384" width="290" height="48" rx="8" fill="#3A4A3C"/>
+      <text x="230" y="404" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="12" font-weight="700" fill="white">AIは補助に限定、最終判断は人間に</text>
+      <text x="230" y="421" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="10" fill="rgba(255,255,255,0.8)">仕訳確定、承認判断など</text>
+    </svg>
+    </div>
+
+    <!-- ───── H2-5 ───── -->
+    <h2>「置き換え」ではなく「拡張」で考える</h2>
+
+    <p>本記事で提案したいのは、「基幹系を置き換える」のではなく「基幹系への入出力をAIがリッチにする」という設計の考え方です。McKinseyが多くの企業にインクリメンタル統合を推奨しているのも、おそらく同じ認識に基づいているのではないかと思います。</p>
+
+    <p>ただし、この「拡張」アプローチにもいくつかの留意点がありそうです。一つは、拡張を重ねることで生じるテクニカルデットの管理。エージェント同士をつなぐオーケストレーション層の設計は、早い段階から考えておく価値があります。もう一つは、ドメインごとの「自律度のグラデーション管理」。第1層と第3層ではAIの関わり方が異なるわけですから、全社一律ではなく、ドメインごとにAIの自律度を定義する仕組みが必要になると考えられます。</p>
+
+    <p>BCGの調査が示す「AIで価値を出せている企業は5%」という数字は、技術の問題というよりも、組織としての判断の枠組みが整っていないことに起因している可能性があります。ドメインごとの特性を踏まえ、段階的に拡張していくアプローチは、この5%に近づくための一つの道筋になるのではないでしょうか。</p>
+
+    <p>エージェントAIが基幹系を代替できる日が来る可能性を否定するつもりはありません。推論の確定性保証や監査証跡の標準化が進めば、境界線は変わり得ます。ただ、現時点では「どこまで入れるか」の判断を、ドメインごとの特性と制約に基づいて行い、拡張のスピードと統制のバランスを意識的に設計すること——これが最も妥当なアプローチではないかと考えています。</p>
+
+    <!-- ───── 参考文献 ───── -->
+    <div class="blog-ref">
+      <h3>参考文献</h3>
+      <ol>
+        <li>McKinsey「<a href="https://www.mckinsey.com/capabilities/mckinsey-technology/our-insights/rethinking-enterprise-architecture-for-the-agentic-era" target="_blank" rel="noopener">Rethinking enterprise architecture for the agentic era</a>」（2026年3月）</li>
+        <li>McKinsey「<a href="https://www.mckinsey.com/capabilities/quantumblack/our-insights/seizing-the-agentic-ai-advantage" target="_blank" rel="noopener">Seizing the agentic AI advantage</a>」（2025年6月）</li>
+        <li>McKinsey「<a href="https://www.mckinsey.com/capabilities/people-and-organizational-performance/our-insights/the-agentic-organization-contours-of-the-next-paradigm-for-the-ai-era" target="_blank" rel="noopener">The agentic organization</a>」（2025年9月）</li>
+        <li>QuantumBlack / McKinsey「<a href="https://medium.com/quantumblack/how-we-enabled-agents-at-scale-in-the-enterprise-with-the-agentic-ai-mesh-baf4290daf48" target="_blank" rel="noopener">Agents at Scale with Agentic AI Mesh</a>」（2025年6月）</li>
+        <li>BCG「<a href="https://www.bcg.com/publications/2025/are-you-generating-value-from-ai-the-widening-gap" target="_blank" rel="noopener">The Widening AI Value Gap: Build for the Future 2025</a>」（2025年9月、調査対象1,250社）</li>
+        <li>BCG「<a href="https://www.bcg.com/publications/2025/closing-the-ai-impact-gap" target="_blank" rel="noopener">From Potential to Profit: Closing the AI Impact Gap</a>」（2025年）</li>
+        <li>Gartner「<a href="https://www.gartner.com/en/newsroom/press-releases/2025-08-26-gartner-predicts-40-percent-of-enterprise-apps-will-feature-task-specific-ai-agents-by-2026-up-from-less-than-5-percent-in-2025" target="_blank" rel="noopener">40% of Enterprise Apps Will Feature AI Agents by 2026</a>」（2025年8月）</li>
+        <li>Gartner「<a href="https://www.gartner.com/en/documents/5850847" target="_blank" rel="noopener">Top Strategic Technology Trends for 2025: Agentic AI</a>」（2025年）</li>
+        <li>Gartner「<a href="https://www.gartner.com/en/documents/7180130" target="_blank" rel="noopener">Predicts 2026: AI Agents Will Reshape I&amp;O</a>」（2025年12月）</li>
+        <li>Gartner「<a href="https://www.gartner.com/en/newsroom/press-releases/2024-10-22-gartner-unveils-top-predictions-for-it-organizations-and-users-in-2025-and-beyond" target="_blank" rel="noopener">Top Predictions for IT Organizations 2025 and Beyond</a>」（2024年10月）</li>
+        <li>Forrester「<a href="https://www.forrester.com/blogs/predictions-2026-ai-agents-changing-business-models-and-workplace-culture-impact-enterprise-software/" target="_blank" rel="noopener">Predictions 2026: Enterprise Software</a>」（2025年11月）</li>
+        <li>Forrester「<a href="https://www.forrester.com/blogs/the-future-is-now-agentic-ai-redefines-responsible-ai/" target="_blank" rel="noopener">Agentic AI Redefines Responsible AI</a>」（2026年3月）</li>
+        <li>Forrester「<a href="https://www.forrester.com/blogs/predictions-2026-ai-moves-from-hype-to-hard-hat-work/" target="_blank" rel="noopener">Predictions 2026: AI Moves From Hype To Hard Hat Work</a>」（2025年10月）</li>
+        <li>Forrester「<a href="https://www.cybrsecmedia.com/why-forrester-says-your-agentic-ai-deployment-will-cause-a-breach-in-2026/" target="_blank" rel="noopener">AEGIS Framework — Agentic AI Security</a>」（2025年）</li>
+      </ol>
+    </div>
+
+    <!-- ───── FAQ ───── -->
+    <h2>よくある質問（FAQ）</h2>
+    <div class="blog-faq" itemscope itemtype="https://schema.org/FAQPage">
+
+      <div class="blog-faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+        <div class="blog-faq-q" itemprop="name">基幹系（会計・ERP）にAIを導入しても内部統制上の問題はないですか？</div>
+        <div class="blog-faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><div itemprop="text">仕訳の確定や承認フローにAIの推論を挟むことは、非決定性の観点から内部統制と衝突するリスクがあると考えられます。一方、入力補助や異常検知といった補助的な活用は有効とされています。現時点では「コアを守りつつ周辺を拡張する」設計が妥当ではないでしょうか。</div></div>
+      </div>
+
+      <div class="blog-faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+        <div class="blog-faq-q" itemprop="name">エージェントAIやMCPは基幹系の代替になりますか？</div>
+        <div class="blog-faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><div itemprop="text">現時点では代替ではなく拡張という位置づけが各ファームの共通した見方です。MCPやエージェントAIが効果を発揮しやすいのは、対外コミュニケーションや文書処理など、ある程度の曖昧さを許容できる領域だと考えられます。</div></div>
+      </div>
+
+      <div class="blog-faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+        <div class="blog-faq-q" itemprop="name">全社的なAI導入の優先順位はどう考えればよいですか？</div>
+        <div class="blog-faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><div itemprop="text">業務ドメインごとにAIの適用パターンと制約が異なるため、ドメイン別に整理するアプローチが有効と考えられます。本記事では、会計・内部統制、業務判断支援、対外コミュニケーション、IT基盤の4層に分類する考え方を提案しています。</div></div>
+      </div>
+
+      <div class="blog-faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+        <div class="blog-faq-q" itemprop="name">McKinseyやBCGはエンタープライズAIアーキテクチャについてどう見ていますか？</div>
+        <div class="blog-faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><div itemprop="text">McKinseyはドメイン単位の段階的アプローチを推奨しています。BCGはAIで実質的価値を創出している企業はわずか5%と報告し、技術力よりも組織構造と運用モデルの変革が鍵と指摘しています。Gartnerは2026年末にエンタープライズアプリの40%がタスク特化型AIエージェントを組み込むと予測しています。</div></div>
+      </div>
+
+      <div class="blog-faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+        <div class="blog-faq-q" itemprop="name">AI導入の判断で迷ったときに使える基準はありますか？</div>
+        <div class="blog-faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><div itemprop="text">3段階の問いかけが有効と考えられます。まず「そのプロセスに説明責任が求められるか」、次に「監査対象か」、そして「処理結果を監査で説明できるか」。説明責任が軽い領域はAI自律度を高めやすく、監査対象でなければ参考値としての活用が可能です。監査対象のプロセスでは、AIを候補提示や検知に限定し、最終判断は人間に残す設計が現時点では妥当と考えられます。</div></div>
+      </div>
+
+    </div>
+
+    <!-- ───── CTA ───── -->
+    <div class="blog-cta-box">
+      <p>「速く作る力」と「安全に作る力」の両立を<br>——Balconyがお手伝いします。</p>
+      <p>DX/BPRコンサルティングとAI/LLMセキュリティ診断で、<br>お客様のプロジェクトを支援します。</p>
+      <a href="../contact/" class="btn-green">
+        お問い合わせはこちら
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+
+    <a href="./" class="blog-back">
+      <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+      記事一覧に戻る
+    </a>
+  </article>
+</section>
+
+<!-- CONTACT CTA -->
+<section class="contact-cta">
+  <div class="reveal"><div class="section-tag">Contact</div></div>
+  <h2 class="section-title reveal d1">お問い合わせはこちら</h2>
+  <p class="section-desc reveal d2">ご相談・ご質問はお気軽にお問い合わせください。</p>
+  <div class="contact-cta-btns reveal d3">
+    <a href="../contact/" class="btn-white">
+      お問い合わせフォーム
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+    <a href="../service/" class="btn-ghost-white">サービスを見る</a>
+  </div>
+</section>
+</main>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div>
+      <img src="../img/corporate_LOGO/Balcony_W1.png" alt="Balcony" class="footer-logo-img">
+      <div class="footer-tagline">新しい価値を定義する<br>Define New Value</div>
+    </div>
+    <div>
+      <div class="footer-col-h">Company</div>
+      <div class="footer-col-links">
+        <a href="../company/">About Company</a>
+      </div>
+    </div>
+    <div>
+      <div class="footer-col-h">Service</div>
+      <div class="footer-col-links">
+        <a href="../service/">Service Overview</a>
+        <a href="../security/">Security Diagnosis</a>
+      </div>
+    </div>
+    <div>
+      <div class="footer-col-h">Other</div>
+      <div class="footer-col-links">
+        <a href="../news/">News</a>
+        <a href="../blog/">Blog</a>
+        <a href="../contact/">Contact</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-copy">Copyright Balcony inc. ALL Rights Reserved.</div>
+  </div>
+</footer>
+
+<a href="../contact/" id="float-contact" class="float-contact">
+  お問い合わせ
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+</a>
+
+<script src="../js/main.js"></script>
+</body>
+</html>

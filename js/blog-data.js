@@ -4,6 +4,14 @@
 
 var BLOG_DATA = [
   {
+    id: 'enterprise-ai-architecture-domain-model',
+    date: '2026.03.26',
+    category: 'ai',
+    categoryLabel: 'AI戦略',
+    title: 'AIをどこまで入れるか——ドメイン別4層モデルで考える全社AI活用戦略',
+    summary: 'エージェントAI時代、経営層が悩む「基幹系にAIを入れていいのか」という問い。McKinsey・BCG・Gartner・Forresterの最新レポートを横断整理し、ドメイン別4層アーキテクチャモデルで判断の考え方を提案します。'
+  },
+  {
     id: 'ai-driven-hybrid-development',
     date: '2026.03.22',
     category: 'dx-dev',
