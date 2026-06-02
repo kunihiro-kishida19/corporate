@@ -4,6 +4,14 @@
 
 var BLOG_DATA = [
   {
+    id: 'fde-consulting-forward-deployed',
+    date: '2026.06.02',
+    category: 'ai',
+    categoryLabel: 'AI戦略',
+    title: 'コンサルティングの"FDE化" ― AI時代に専門サービスの価値が移動する場所',
+    summary: 'AIで実行がコモディティ化する時代、専門サービスの価値は「考えて渡す」から「現場で動かしきる」へ。Forward Deployed Engineer（FDE）の急成長を補助線に、コンサル選定の新しい基準を経営者向けに解説します。'
+  },
+  {
     id: 'enterprise-ai-architecture-domain-model',
     date: '2026.03.26',
     category: 'ai',

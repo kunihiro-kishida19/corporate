@@ -51,6 +51,7 @@ A: 診断対象の規模・スコープによって大きく異なるため、�
 
 ## ナレッジブログ
 
+- [コンサルティングの"FDE化" ― AI時代に専門サービスの価値が移動する場所](https://balcony.co.jp/blog/fde-consulting-forward-deployed.html)
 - [AIをどこまで入れるか——ドメイン別4層モデルで考える全社AI活用戦略](https://balcony.co.jp/blog/enterprise-ai-architecture-domain-model.html)
 - [AI駆動開発の一つの解 ― 20人月→2人月にした、探索と実装を分離する開発フレームワーク](https://balcony.co.jp/blog/ai-driven-hybrid-development.html)
 - [AI文明は社会をどう変えるか ― エージェント経済・国家・リベラルアーツの視点から](https://balcony.co.jp/blog/ai-civilization-liberal-arts.html)
