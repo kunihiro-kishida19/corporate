@@ -92,7 +92,6 @@
       e.preventDefault();
       var btn = document.getElementById('submit-btn');
 
-      // Honeypot check — bots fill hidden fields
       var honeypot = form.querySelector('[name="website"]');
       if (honeypot && honeypot.value) return;
 
@@ -110,7 +109,6 @@
       btn.style.opacity = '0.7';
 
       var data = new FormData(form);
-      // Remove custom honeypot from data sent to Formspree
       data.delete('website');
 
       fetch('https://formspree.io/f/' + FORMSPREE_ID, {
