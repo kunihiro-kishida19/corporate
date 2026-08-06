@@ -1,36 +1,3 @@
-// ── PARTICLES ──
-(function() {
-  var canvas = document.getElementById('particles');
-  var ctx = canvas.getContext('2d');
-  var W, H, stars = [];
-  function resize() { W = canvas.width = innerWidth; H = canvas.height = innerHeight; }
-  resize();
-  window.addEventListener('resize', resize);
-  for (var i = 0; i < 160; i++) {
-    stars.push({
-      x: Math.random() * 1600, y: Math.random() * 1200,
-      r: Math.random() * 1.4 + 0.3,
-      vx: (Math.random() - 0.5) * 0.12, vy: (Math.random() - 0.5) * 0.12,
-      o: Math.random() * 0.55 + 0.15
-    });
-  }
-  function draw() {
-    ctx.clearRect(0, 0, W, H);
-    for (var s, i = 0; i < stars.length; i++) {
-      s = stars[i];
-      ctx.beginPath();
-      ctx.arc(s.x % W, s.y % H, s.r, 0, Math.PI * 2);
-      ctx.fillStyle = 'rgba(200,225,255,' + s.o + ')';
-      ctx.fill();
-      s.x += s.vx; s.y += s.vy;
-      if (s.x < 0) s.x = W; if (s.x > W) s.x = 0;
-      if (s.y < 0) s.y = H; if (s.y > H) s.y = 0;
-    }
-    requestAnimationFrame(draw);
-  }
-  draw();
-})();
-
 // ── SCROLL REVEAL ──
 var revealObs = new IntersectionObserver(function(entries) {
   entries.forEach(function(e) { if (e.isIntersecting) e.target.classList.add('visible'); });
@@ -95,31 +62,17 @@ function alignTerminal() {
   var termWrap = document.getElementById('hero-terminal-wrap');
   if (!subtitle || !termWrap) return;
   var heroContent = document.querySelector('.hero-content');
-  if (window.innerWidth < 1280) { termWrap.style.paddingTop = '0px'; return; }
+  if (window.innerWidth <= 1280) { termWrap.style.paddingTop = '0px'; return; }
   var contentTop = heroContent.getBoundingClientRect().top;
   var subtitleTop = subtitle.getBoundingClientRect().top;
   var offset = subtitleTop - contentTop;
   if (offset > 0) termWrap.style.paddingTop = offset + 'px';
 }
 
-// ── ALIGN AI CARD ──
-function alignAiCard() {
-  var label = document.querySelector('#ai .section-label');
-  var desc = document.getElementById('ai-desc');
-  var cardCol = document.getElementById('ai-card-col');
-  if (!label || !desc || !cardCol) return;
-  var leftCol = label.closest('.ai-inner > div');
-  if (!leftCol || window.innerWidth < 900) { cardCol.style.paddingTop = '0px'; return; }
-  var leftTop = leftCol.getBoundingClientRect().top;
-  var descTop = desc.getBoundingClientRect().top;
-  var offset = descTop - leftTop;
-  if (offset > 0) cardCol.style.paddingTop = offset + 'px';
-}
-
 document.fonts.ready.then(function() {
-  setTimeout(function() { alignTerminal(); alignAiCard(); }, 150);
+  setTimeout(function() { alignTerminal(); }, 150);
 });
-window.addEventListener('resize', function() { alignTerminal(); alignAiCard(); });
+window.addEventListener('resize', function() { alignTerminal(); });
 
 // ── TERMINAL TYPEWRITER ──
 (function() {
@@ -131,7 +84,7 @@ window.addEventListener('resize', function() { alignTerminal(); alignAiCard(); }
       line.style.transition = 'opacity 0.3s, transform 0.3s';
       line.style.opacity = '1';
       line.style.transform = 'translateX(0)';
-    }, 1200 + i * 220);
+    }, 1200 + i * 280);
   });
 })();
 
@@ -164,7 +117,6 @@ function handleSubmit(e) {
   var form = e.target;
   var btn = document.getElementById('submit-btn');
 
-  // Honeypot check — bots fill hidden fields
   var honeypot = form.querySelector('[name="website"]');
   if (honeypot && honeypot.value) return;
 
@@ -212,29 +164,6 @@ function handleSubmit(e) {
     console.error(err);
   });
 }
-
-// ── GLITCH EFFECT ──
-(function() {
-  var el = document.getElementById('glitch-title');
-  if (!el) return;
-  var original = 'WHITE';
-  var chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@#$%&';
-  function glitch() {
-    var iter = 0;
-    var interval = setInterval(function() {
-      el.textContent = original.split('').map(function(c, i) {
-        if (i < iter) return original[i];
-        return chars[Math.floor(Math.random() * chars.length)];
-      }).join('');
-      if (iter++ >= original.length) {
-        clearInterval(interval);
-        el.textContent = original;
-      }
-    }, 48);
-  }
-  setTimeout(glitch, 1500);
-  setInterval(glitch, 7000);
-})();
 
 // ── FAQ ──
 document.querySelectorAll('.faq-q').forEach(function(el) {
