@@ -57,8 +57,11 @@ nav.compact{padding:14px 64px}
 /* ══════════════════════════════════════════
    HERO
 ══════════════════════════════════════════ */
-.hero{min-height:100vh;display:grid;grid-template-columns:1.05fr 0.95fr;gap:64px;align-items:start;position:relative;z-index:2;padding:170px 64px 100px;background:linear-gradient(180deg,var(--bg2) 0%,var(--bg) 70%)}
-.hero-content{position:relative;z-index:2}
+/* 左カラムを「見出し部」と「本文部」の2行に分け、ターミナルを本文部と同じ行に置く。
+   これでターミナルの上端が「脆弱性を、攻撃者より先に見つける。」と厳密に揃う（計算不要） */
+.hero{min-height:100vh;display:grid;grid-template-columns:1.05fr 0.95fr;grid-template-areas:"head ." "body term";gap:0 64px;align-items:start;position:relative;z-index:2;padding:170px 64px 100px;background:linear-gradient(180deg,var(--bg2) 0%,var(--bg) 70%)}
+.hero-head{grid-area:head;position:relative;z-index:2}
+.hero-body{grid-area:body;position:relative;z-index:2}
 .hero-eyebrow{font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:4px;color:var(--c1);text-transform:uppercase;margin-bottom:32px;display:flex;align-items:center;gap:14px;opacity:0;transform:translateY(16px);animation:hero-in 0.7s 0.2s forwards}
 .hero-eyebrow::before{content:'';display:inline-block;width:40px;height:1px;background:var(--c1)}
 .hero-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(64px,8.5vw,116px);line-height:0.9;letter-spacing:3px;color:var(--text);opacity:0;transform:translateY(24px);animation:hero-in 0.8s 0.35s forwards}
@@ -82,7 +85,7 @@ nav.compact{padding:14px 64px}
 .btn-secondary:hover{border-color:var(--c1);color:var(--c1);transform:translateY(-2px)}
 
 /* ── TERMINAL（唯一の技術演出） ── */
-.hero-terminal-wrap{position:relative;z-index:2;opacity:0;transform:translateX(24px);animation:hero-in 0.9s 0.9s forwards}
+.hero-terminal-wrap{grid-area:term;position:relative;z-index:2;opacity:0;transform:translateX(24px);animation:hero-in 0.9s 0.9s forwards}
 .hero-terminal{background:#101c2e;border:1px solid #22344c;border-radius:10px;overflow:hidden;font-family:'JetBrains Mono',monospace;box-shadow:0 28px 60px rgba(19,31,48,0.25)}
 .terminal-bar{background:rgba(255,255,255,0.06);padding:13px 18px;display:flex;align-items:center;gap:8px;border-bottom:1px solid rgba(255,255,255,0.08)}
 .t-dot{width:11px;height:11px;border-radius:50%}
@@ -124,9 +127,9 @@ section{padding:140px 64px;position:relative;z-index:2}
 .trusted-badge:hover{border-color:var(--c1b)}
 .trusted-badge-icon{width:56px;height:56px;border:1px solid var(--b1);border-radius:8px;display:flex;align-items:center;justify-content:center;color:var(--c1);background:rgba(14,124,116,0.05);margin-bottom:6px}
 .trusted-badge-icon svg{width:26px;height:26px}
-.trusted-badge-label{font-size:17px;font-weight:700}
-.trusted-badge-text{font-size:14px;color:var(--text2);line-height:1.8}
-.trusted-note{margin-top:26px;font-size:13px;color:var(--text2)}
+.trusted-badge-label{font-size:20px;font-weight:700}
+.trusted-badge-text{font-size:17px;color:var(--text2);line-height:1.8}
+.trusted-note{margin-top:26px;font-size:15px;color:var(--text2)}
 .trusted-cta{margin-top:36px}
 
 /* ══════════════════════════════════════════
@@ -134,14 +137,14 @@ section{padding:140px 64px;position:relative;z-index:2}
 ══════════════════════════════════════════ */
 .who-section{background:var(--bg)}
 .who-inner{max-width:960px;margin:0 auto;text-align:center}
-.who-lead{font-size:14px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:var(--c1);font-family:'JetBrains Mono',monospace;margin-bottom:32px;display:flex;align-items:center;justify-content:center;gap:14px}
+.who-lead{font-size:15px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:var(--c1);font-family:'JetBrains Mono',monospace;margin-bottom:32px;display:flex;align-items:center;justify-content:center;gap:14px}
 .who-lead::before,.who-lead::after{content:'';flex:1;max-width:80px;height:1px;background:var(--b1)}
 .who-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
 .who-card{background:#fff;border:1px solid var(--b2);border-radius:10px;padding:26px 24px;transition:border-color 0.3s;text-align:left}
 .who-card:hover{border-color:var(--c1b)}
-.who-card-title{font-size:15px;font-weight:700;margin-bottom:10px;display:flex;align-items:center;gap:10px}
+.who-card-title{font-size:18px;font-weight:700;margin-bottom:10px;display:flex;align-items:center;gap:10px}
 .who-card-title svg{color:var(--c4);flex-shrink:0}
-.who-card-text{font-size:13px;color:var(--text2);line-height:1.8}
+.who-card-text{font-size:16px;color:var(--text2);line-height:1.8}
 
 /* ══════════════════════════════════════════
    WHY SECTION
@@ -214,6 +217,13 @@ section{padding:140px 64px;position:relative;z-index:2}
 ══════════════════════════════════════════ */
 .free-diag-section{background:var(--bg2)}
 .free-diag-inner{display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:start;position:relative;z-index:2}
+/* 「// 検出所見の例」の上端を「契約前に診断品質を確認」に揃える。
+   内訳: section-label(11px×1.8 + margin18) + section-title(2行 × line-height0.95 + margin22)
+        + section-desc(17px×1.8 × 2行) + fdp-list の margin-top36 + fdp-item の padding20 − fp-head の padding16
+   2カラムのとき（901px以上）のみ適用する */
+@media(min-width:901px){
+  .free-diag-inner > .from-right{margin-top:calc(161px + clamp(40px,4.8vw,64px) * 1.9)}
+}
 .fdp-list{display:flex;flex-direction:column;gap:16px;margin-top:36px}
 .fdp-item{display:flex;gap:18px;align-items:flex-start;padding:20px 22px;background:#fff;border:1px solid var(--b2);border-radius:10px;transition:border-color 0.3s}
 .fdp-item:hover{border-color:var(--c1b)}
@@ -295,7 +305,7 @@ footer{background:var(--dark);padding:44px 64px;position:relative;z-index:2}
    RESPONSIVE
 ══════════════════════════════════════════ */
 @media(max-width:1280px){
-  .hero{grid-template-columns:1fr;min-height:auto;padding:160px 56px 80px}
+  .hero{grid-template-columns:1fr;grid-template-areas:"head" "body" "term";min-height:auto;padding:160px 56px 80px}
   .hero-terminal-wrap{max-width:580px}
 }
 @media(max-width:1024px){

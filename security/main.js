@@ -56,23 +56,8 @@ function closeMenu() {
   mobileMenu.classList.remove('open');
 }
 
-// ── ALIGN TERMINAL TO SUBTITLE ──
-function alignTerminal() {
-  var subtitle = document.getElementById('hero-subtitle');
-  var termWrap = document.getElementById('hero-terminal-wrap');
-  if (!subtitle || !termWrap) return;
-  var heroContent = document.querySelector('.hero-content');
-  if (window.innerWidth <= 1280) { termWrap.style.paddingTop = '0px'; return; }
-  var contentTop = heroContent.getBoundingClientRect().top;
-  var subtitleTop = subtitle.getBoundingClientRect().top;
-  var offset = subtitleTop - contentTop;
-  if (offset > 0) termWrap.style.paddingTop = offset + 'px';
-}
-
-document.fonts.ready.then(function() {
-  setTimeout(function() { alignTerminal(); }, 150);
-});
-window.addEventListener('resize', function() { alignTerminal(); });
+// ターミナルの縦位置は CSS Grid（.hero の grid-template-areas）で揃えている。
+// 以前は JS で hero-subtitle の位置に合わせていたが、揃え先が誤っていたため廃止した。
 
 // ── TERMINAL TYPEWRITER ──
 (function() {
