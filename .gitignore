@@ -26,3 +26,10 @@ secrets.toml
 # Build artifacts
 dist/
 tmp/
+
+# 非公開資料 — このリポジトリは公開されているため、以下は絶対にコミットしない
+# パートナー各社から提供された営業資料（社名・料金・取引先を含む）
+docs/サービス/
+# 自社サイトの脆弱性診断レポートおよびその評価（攻撃者への手がかりになる）
+feedback_*_report_*.md
+*_security_report*.md
