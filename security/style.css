@@ -164,27 +164,20 @@ section{padding:140px 64px;position:relative;z-index:2}
 ══════════════════════════════════════════ */
 .services-section{background:var(--bg)}
 .services-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;margin-top:64px}
-.service-card{background:#fff;border:1px solid var(--b2);border-radius:10px;padding:36px 30px;transition:border-color 0.3s}
+.service-card{background:#fff;border:1px solid var(--b2);border-radius:10px;padding:36px 30px;transition:border-color 0.3s;display:flex;flex-direction:column}
 .service-card:hover{border-color:var(--c1b)}
 .service-num{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:600;letter-spacing:3px;color:var(--c1);margin-bottom:18px}
 .service-icon-wrap{width:52px;height:52px;border:1px solid var(--b1);border-radius:8px;display:flex;align-items:center;justify-content:center;margin-bottom:20px;background:rgba(14,124,116,0.05)}
 .service-icon-wrap svg{width:24px;height:24px}
 .service-name{font-size:20px;font-weight:700;margin-bottom:16px;line-height:1.3}
-.service-summary{font-size:14px;color:var(--c1);margin-bottom:18px;padding-bottom:16px;border-bottom:1px solid var(--b2);font-weight:500;line-height:1.8}
-.service-items{list-style:none;display:flex;flex-direction:column;gap:10px}
+.service-summary{font-size:14px;color:var(--c1);margin-bottom:18px;padding-bottom:16px;border-bottom:1px solid var(--b2);font-weight:500;line-height:1.8;min-height:67px}
+.service-items{list-style:none;display:flex;flex-direction:column;gap:10px;flex:1}
 .service-items li{font-size:14px;color:var(--text2);display:flex;align-items:flex-start;gap:10px;line-height:1.8}
 .service-items li::before{content:'›';color:var(--c1);flex-shrink:0;font-family:'JetBrains Mono',monospace;font-weight:600;margin-top:2px}
 
 /* ── 診断サービス比較テーブル ── */
-.diag-table-wrap{margin-top:64px}
-.diag-table-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;border:1px solid var(--b2);border-radius:10px;background:#fff}
-.diag-table{width:100%;min-width:760px;border-collapse:collapse;font-size:14px;text-align:left}
-.diag-table caption{caption-side:top;text-align:left;font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:600;letter-spacing:3px;color:var(--c1);text-transform:uppercase;padding:18px 20px 12px}
-.diag-table thead th{font-size:12px;font-weight:600;letter-spacing:1px;color:var(--text);background:var(--bg2);padding:13px 20px;border-top:1px solid var(--b2);border-bottom:1px solid var(--b2);white-space:nowrap}
-.diag-table tbody td{padding:15px 20px;border-bottom:1px solid var(--b2);color:var(--text2);line-height:1.8;vertical-align:top}
-.diag-table tbody tr:last-child td{border-bottom:none}
-.diag-table tbody td:first-child{color:var(--text);font-weight:600;white-space:nowrap}
-.diag-table-hint{display:none;margin-top:12px;font-size:11px;font-family:'JetBrains Mono',monospace;letter-spacing:2px;color:var(--text2);text-align:center;opacity:0.7}
+/* 各診断カードの準拠規格（比較表から移設） */
+.service-std{margin-top:16px;padding-top:14px;border-top:1px solid var(--b2);font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:1px;color:var(--c1)}
 
 /* ══════════════════════════════════════════
    AI SECTION
@@ -345,7 +338,6 @@ footer{background:var(--dark);padding:44px 64px;position:relative;z-index:2}
   .faq-a{padding:0 22px 0}
   .faq-item.open .faq-a{padding:0 22px 20px}
   .faq-q-text{font-size:15px}
-  .diag-table-hint{display:block}
   .trusted-badge{padding:32px 24px}
 }
 @media(max-width:640px){

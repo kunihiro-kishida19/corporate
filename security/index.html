@@ -326,6 +326,7 @@
         <li>セキュリティヘッダ（CSP, CORS, HSTS, 情報露出）</li>
         <li>業務ロジックの整合性（確定/解除/割付/CSV取込など副作用のある操作）</li>
       </ul>
+      <div class="service-std">OWASP WSTG / ASVS</div>
     </div>
 
     <div class="service-card reveal d1">
@@ -345,6 +346,7 @@
         <li>エラー情報露出・レート制御</li>
         <li>SSRF / IMDSv2 / CORS / 監査イベント適正化</li>
       </ul>
+      <div class="service-std">OWASP API Security Top 10</div>
     </div>
 
     <div class="service-card reveal d2">
@@ -363,6 +365,7 @@
         <li>認証情報探索・ストレージの悪用確認</li>
         <li>誤設定されたサービスの悪用リスク評価</li>
       </ul>
+      <div class="service-std">CIS Benchmarks</div>
     </div>
 
     <div class="service-card reveal d3">
@@ -386,27 +389,10 @@
         <li>Webサーバー（既知脆弱性・不要ポート・ソフトウェア構成）</li>
         <li>FW・FTPサーバーの通信制御・認証設定の妥当性確認</li>
       </ul>
+      <div class="service-std">OWASP Top 10</div>
     </div>
   </div>
 
-  <!-- DIAGNOSTIC COMPARISON TABLE -->
-  <div class="diag-table-wrap reveal">
-    <div class="diag-table-scroll">
-      <table class="diag-table">
-        <caption>Balcony セキュリティ脆弱性診断サービス比較</caption>
-        <thead>
-          <tr><th>診断サービス</th><th>対象</th><th>主な診断項目</th><th>準拠規格</th></tr>
-        </thead>
-        <tbody>
-          <tr><td>Webアプリ診断</td><td>Webサイト全体</td><td>認証・セッション管理、XSS、SQLi、CSRF、IDOR、業務ロジック</td><td>OWASP WSTG / ASVS</td></tr>
-          <tr><td>API診断</td><td>APIエンドポイント</td><td>BOLA、BFLA、Mass Assignment、SSRF、レート制御、エラー情報露出</td><td>OWASP API Security Top 10</td></tr>
-          <tr><td>クラウド診断</td><td>AWS / GCP / Azure</td><td>CISベンチマーク、設定監査、認証情報探索、ストレージ悪用</td><td>CIS Benchmarks</td></tr>
-          <tr><td>プラットフォーム診断</td><td>サーバー・ネットワーク</td><td>ポートスキャン、DNS、メールサーバー、FW設定、既知脆弱性</td><td>OWASP Top 10</td></tr>
-        </tbody>
-      </table>
-    </div>
-    <div class="diag-table-hint">← 横にスクロールできます →</div>
-  </div>
 </section>
 
 <!-- AI SECTION -->
